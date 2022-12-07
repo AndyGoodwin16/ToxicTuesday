@@ -1,7 +1,7 @@
 //Create function to take in a selected stat and plot it on a bar graph for each name, role.
 function buildBarGraph(stat) {
     //Import JSON file.
-    d3.json('json/game_data.json').then((data) => {
+    d3.json('game_data.json').then((data) => {
         //Create empty arrays to store data.
         let name_position_list = [];
         let stat_list = [];
@@ -40,7 +40,7 @@ function init() {
     let selector = d3.select('#selDataset');
 
     //Import JSON file.
-    d3.json('json/game_data.json').then((data) => {
+    d3.json('game_data.json').then((data) => {
 
         //Create list of stats and iterate over to add into dropdown menu.
         all_stat_list = Object.keys(data[0]);
@@ -68,7 +68,7 @@ init();
 //Create function to take in a selected pick ban stat and plot it on a bar graph for each champion name.
 function buildBarGraph2(stat) {
     //Import JSON file.
-    d3.json('json/pick_ban.json').then((data) => {
+    d3.json('pick_ban.json').then((data) => {
         //Create empty arrays to store data.
         let champion_name_list = [];
         let stat_list = [];
@@ -107,7 +107,7 @@ function init2() {
     let selector = d3.select('#selDataset2');
 
     //Import JSON file.
-    d3.json('json/pick_ban.json').then((data) => {
+    d3.json('pick_ban.json').then((data) => {
 
         //Create list of stats and iterate over to add into dropdown menu.
         all_stat_list = Object.keys(data[0]);
@@ -135,7 +135,7 @@ init2();
 //Create function to display head to head record in a table.
 function buildOppTeamTable() {
     //Import JSON file.
-    d3.json('json/head_to_head.json').then((data) => {
+    d3.json('head_to_head.json').then((data) => {
         
         //Create list of players to serve as columns and rows.
         players_list = ['', 'Andy', 'Anthony', 'Beals', 'Desp', 'Furb', 'Jackson', 'Jess', 'Kinga',
@@ -198,7 +198,7 @@ buildOppTeamTable();
 //Create function to display record of players on the same team in a table.
 function buildSameTeamTable() {
     //Import JSON file.
-    d3.json('json/same_team.json').then((data) => {
+    d3.json('same_team.json').then((data) => {
         
         //Create list of players to serve as columns and rows.
         players_list = ['', 'Andy', 'Anthony', 'Beals', 'Desp', 'Furb', 'Jackson', 'Jess', 'Kinga', 'Kori', 'Luke', 'Milroy', 'Moo', 'Nick B.', 'Nick D.', 'Rob', 'Tonnie', 'Tyler'];
@@ -259,7 +259,7 @@ buildSameTeamTable();
 //Create function to display win percent.
 function buildWinrateTable() {
     //Import JSON file.
-    d3.json('json/winrate.json').then((data) => {
+    d3.json('winrate.json').then((data) => {
 
          //Create list of players to serve as rows.
         players_list = ['Andy', 'Anthony', 'Beals', 'Desp', 'Furb', 'Jackson', 'Jess', 'Kinga', 'Kori', 'Luke', 'Milroy', 'Moo', 'Nick B.', 'Nick D.', 'Rob', 'Tonnie', 'Tyler'];
