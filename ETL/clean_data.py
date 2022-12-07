@@ -446,11 +446,11 @@ raw_data = raw_data[['Name', 'Position', 'ChampionName', 'Side', 'GameID', 'Game
                      'Gold', 'GoldPerMin', 'GoldPercent', 'DamageDealt', 'DamageDealtPerMin', 'DamageDealtPercent', 'DamageTaken', 'DamageTakenPerMin', 'DamageTakenPercent',
                      'VisionScore']]
 
-game_data.to_json('game_data.json', orient = 'records')
-winrate.to_json('winrate.json', orient = 'values')
-pick_ban.to_json('pick_ban.json', orient = 'records')
-head_to_head.to_json('head_to_head.json', orient = 'values')
-same_team.to_json('same_team.json', orient = 'values')
-raw_data.to_json('raw_data.json', orient = 'records')
+game_data.to_json('../static/json/game_data.json', orient = 'records')
+winrate.to_json('../static/json/winrate.json', orient = 'values')
+pick_ban.to_json('../static/json/pick_ban.json', orient = 'records')
+head_to_head.to_json('../static/json/head_to_head.json', orient = 'values')
+same_team.to_json('../static/json/same_team.json', orient = 'values')
+raw_data.to_json('../static/json/raw_data.json', orient = 'records')
 
 con.close()
