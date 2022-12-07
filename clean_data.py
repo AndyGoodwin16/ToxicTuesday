@@ -404,6 +404,7 @@ pick_ban['PickBanPercent'] = pick_ban['PickBanPercent']*100
 pick_ban['WinPercent'] = pick_ban['WinPercent']*100
 pick_ban['RedWinPercent'] = pick_ban['RedWinPercent']*100
 pick_ban['BlueWinPercent'] = pick_ban['BlueWinPercent']*100
+pick_ban = pick_ban.sort_values(by = 'championName')
 
 df4 = df4.replace({'teamId': {'BLUE': 'Blue', 'RED': 'Red'}})
 df4 = df4.replace({'win': {1: 'Win', 0: 'Loss'}})
