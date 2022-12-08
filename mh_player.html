@@ -110,15 +110,34 @@
     
                     <!-- Content Row -->
                     <div class='row'>
-
-                        <!-- In-Game Stats Chart -->
+                        <!-- Card Header - Dropdown -->
+                        <!-- Card Header -->
                         <div class='col-xl-12 col-lg-7'>
                             <div class='card shadow mb-4'>
-
-                                <!-- Card Header - Dropdown -->
                                 <div class='card-header py-3 d-flex flex-row align-items-center justify-content-between'>
-                                    <h6 class='m-0 font-weight-bold text-primary'>Coming soon.</h6>
-                                    
+                                    <h6 class='m-0 font-weight-bold text-primary'>Match History by Player:</h6>
+                                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                                        <div class="input-group">
+                                            <input type="text" id = "input" class="form-control bg-light border-0 small" placeholder="Click Button"
+                                                aria-label="Search" aria-describedby="basic-addon2">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary" type="button" onclick="buildPlayerMatchHistory()">
+                                                    <i class="fas fa-search fa-sm"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card Body -->
+                        <div class='card-body'>
+                            <div id='table4'></div>
+                        </div>
+
+                    </div>
+                </div>                                    
             </div>
         </div>
     </div>
@@ -138,6 +157,6 @@
     
     <script src='https://d3js.org/d3.v5.min.js'></script>
     <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
-    <script src='../static/js/plot.js'></script>
+    <script src='plot.js'></script>
 
 </body>

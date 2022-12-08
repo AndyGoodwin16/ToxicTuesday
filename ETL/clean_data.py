@@ -62,7 +62,13 @@ df3 = pd.merge(df2, df_total_team_dmg_tkn, on = ['gameId', 'teamId'])
 df_total_team_kills = df.groupby(['gameId', 'teamId'])['kills'].sum()
 df4 = pd.merge(df3, df_total_team_kills, on = ['gameId', 'teamId'])
 
-df4 =  df4.rename(columns = {
+df_total_player_games = df.groupby(['summonerName'])['gameId'].nunique()
+df4 = pd.merge(df4, df_total_player_games, on = ['summonerName'])
+
+df_total_champ_games = df.groupby(['championName'])['gameId'].nunique()
+df4 = pd.merge(df4, df_total_champ_games, on = ['championName'])
+
+df4 = df4.rename(columns = {
     'goldEarned_x': 'goldEarned',
     'goldEarned_y': 'team_goldEarned',
     'totalDamageDealtToChampions_x': 'totalDamageDealtToChampions',
@@ -70,7 +76,10 @@ df4 =  df4.rename(columns = {
     'totalDamageTaken_x': 'totalDamageTaken',
     'totalDamageTaken_y': 'team_totalDamageTaken',
     'kills_x': 'kills',
-    'kills_y': 'team_kills'
+    'kills_y': 'team_kills',
+    'gameId_x': 'gameId',
+    'gameId_y': 'total_player_games',
+    'gameId': 'total_champ_games'
 })
 
 #Create dataframe grouped by Position and Name showing games played, wins, losses, and win percent.
@@ -411,12 +420,8 @@ df4 = df4.replace({'win': {1: 'Win', 0: 'Loss'}})
 df4 = df4.replace({'individualPosition': {'TOP': 'Top', 'JUNGLE': 'Jung', 'MIDDLE': 'Mid', 'BOTTOM': 'Bot', 'UTILITY': 'Supp'}})
 
 df4['KillParticipation'] = (df4['kills'] + df4['assists']) / df4['team_kills']
-df4['CSPerMin'] = df4['cs'] / df4['gameDuration']
-df4['GoldPerMin'] = df4['goldEarned'] / df4['gameDuration']
 df4['GoldPercent'] = df4['goldEarned'] / df4['team_goldEarned']
-df4['DamageDealtPerMin'] = df4['totalDamageDealtToChampions'] / df4['gameDuration']
 df4['DamageDealtPercent'] = df4['totalDamageDealtToChampions'] / df4['team_totalDamageDealtToChampions']
-df4['DamageTakenPerMin'] = df4['totalDamageTaken'] / df4['gameDuration']
 df4['DamageTakenPercent'] = df4['totalDamageTaken'] / df4['team_totalDamageTaken']
 
 df4['KillParticipation'] = df4['KillParticipation']*100
@@ -429,7 +434,6 @@ raw_data = df4.rename(columns = {
     'individualPosition': 'Position',
     'championName': 'ChampionName',
     'teamId': 'Side',
-    'gameId': 'GameID',
     'gameDuration': 'GameDuration',
     'win': 'Result',
     'kills': 'Kills',
@@ -439,18 +443,19 @@ raw_data = df4.rename(columns = {
     'goldEarned': 'Gold',
     'totalDamageDealtToChampions': 'DamageDealt',
     'totalDamageTaken': 'DamageTaken',
-    'visionScore': 'VisionScore'
+    'visionScore': 'VisionScore',
+    'total_player_games': 'TotalPlayerGames',
+    'total_champ_games': 'TotalChampGames'
 })
+raw_data = raw_data.sort_values(by = 'gameId')
+raw_data = raw_data[['Name', 'Position', 'ChampionName', 'Side', 'GameDuration', 'Result', 'Kills', 'Deaths', 'Assists', 'KillParticipation', 'CS',
+                     'Gold', 'GoldPercent', 'DamageDealt', 'DamageDealtPercent', 'DamageTaken', 'DamageTakenPercent', 'VisionScore', 'TotalPlayerGames', 'TotalChampGames']]
 
-raw_data = raw_data[['Name', 'Position', 'ChampionName', 'Side', 'GameID', 'GameDuration', 'Result', 'Kills', 'Deaths', 'Assists', 'KillParticipation', 'CS', 'CSPerMin',
-                     'Gold', 'GoldPerMin', 'GoldPercent', 'DamageDealt', 'DamageDealtPerMin', 'DamageDealtPercent', 'DamageTaken', 'DamageTakenPerMin', 'DamageTakenPercent',
-                     'VisionScore']]
-
-game_data.to_json('../static/json/game_data.json', orient = 'records')
-winrate.to_json('../static/json/winrate.json', orient = 'values')
-pick_ban.to_json('../static/json/pick_ban.json', orient = 'records')
-head_to_head.to_json('../static/json/head_to_head.json', orient = 'values')
-same_team.to_json('../static/json/same_team.json', orient = 'values')
-raw_data.to_json('../static/json/raw_data.json', orient = 'records')
+game_data.to_json('../game_data.json', orient = 'records')
+winrate.to_json('../winrate.json', orient = 'values')
+pick_ban.to_json('../pick_ban.json', orient = 'records')
+head_to_head.to_json('../head_to_head.json', orient = 'values')
+same_team.to_json('../same_team.json', orient = 'values')
+raw_data.to_json('../raw_data.json', orient = 'values')
 
 con.close()
