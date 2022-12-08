@@ -103,8 +103,9 @@ df_per_min['ahspm'] = (df_per_min['totalHealsOnTeammates'] + df_per_min['totalDa
 df_per_min['vspm'] = df_per_min['visionScore'] / df_per_min['gameDuration']
 df_per_min['wppm'] = df_per_min['wardsPlaced'] / df_per_min['gameDuration']
 df_per_min['wkpm'] = df_per_min['wardsKilled'] / df_per_min['gameDuration']
+df_per_min['dpg'] = df_per_min['dpm'] / df_per_min['gpm']
 
-df_per_min = df_per_min[['cspm', 'gpm', 'dpm', 'dtpm', 'hpm', 'ahspm', 'vspm', 'wppm', 'wkpm']]
+df_per_min = df_per_min[['cspm', 'gpm', 'dpm', 'dtpm', 'hpm', 'ahspm', 'vspm', 'wppm', 'wkpm', 'dpg']]
 
 #Create dataframe with appropriate per game stats and grouped by Position and Name.
 df8 = df4[['individualPosition', 'summonerName', 'kills', 'deaths', 'assists', 'goldEarned', 'totalDamageDealtToChampions', 'totalDamageTaken', 'damageDealtToTurrets', 'firstBloodKill', 'firstBloodAssist', 'firstTowerKill',
@@ -146,7 +147,7 @@ df11['damageDealtToTurrets_per_game'] = df11['damageDealtToTurrets'] / df11['gam
 df11 = df11.reset_index()
 
 #Organize dataframe columns in desired order.
-game_data = df11[['summonerName', 'individualPosition', 'gameId', 'win', 'loss', 'wp', 'kills_per_game', 'deaths_per_game', 'assists_per_game', 'kda', 'kp', 'cspm', 'gpm', 'gold_perc', 'dpm', 'dmg_perc', 'dtpm', 'dmg_tkn_perc', 'hpm', 'ahspm', 'vspm', 'wppm',
+game_data = df11[['summonerName', 'individualPosition', 'gameId', 'win', 'loss', 'wp', 'kills_per_game', 'deaths_per_game', 'assists_per_game', 'kda', 'kp', 'cspm', 'gpm', 'gold_perc', 'dpm', 'dmg_perc', 'dpg', 'dtpm', 'dmg_tkn_perc', 'hpm', 'ahspm', 'vspm', 'wppm',
               'wkpm', 'visionWardsBoughtInGame_per_game', 'wardsGuarded_per_game', 'first_blood_involved_per_game', 'first_tower_involved_per_game', 'solo_kills_per_game', 'outnumbered_kills_per_game', 
               'doubleKills_per_game', 'tripleKills_per_game', 'quadraKills_per_game', 'pentaKills_per_game', 'turret_plates_taken_per_game', 'damageDealtToTurrets_per_game', 
               'minionsFirst10Minutes_per_game', 'skillshotsHit_per_game', 'skillshotsDodged_per_game', 'abilityUses_per_game', 'epicMonsterSteals_per_game']]
@@ -351,6 +352,7 @@ game_data = game_data.rename(columns = {
     'gold_perc': 'GoldPercent',
     'dpm': 'DamagePerMin',
     'dmg_perc': 'DamagePercent',
+    'dpg': 'DamagePerGold',
     'dtpm': 'DamageTakenPerMin',
     'dmg_tkn_perc': 'DamageTakenPercent',
     'hpm': 'SelfHealingPerMin',
