@@ -430,6 +430,7 @@ df4['DamageDealtPercent'] = df4['DamageDealtPercent']*100
 df4['DamageTakenPercent'] = df4['DamageTakenPercent']*100
 
 raw_data = df4.rename(columns = {
+    'gameId': 'GameID',
     'summonerName': 'Name',
     'individualPosition': 'Position',
     'championName': 'ChampionName',
@@ -447,9 +448,9 @@ raw_data = df4.rename(columns = {
     'total_player_games': 'TotalPlayerGames',
     'total_champ_games': 'TotalChampGames'
 })
-raw_data = raw_data.sort_values(by = 'gameId')
+raw_data = raw_data.sort_values(by = 'GameID')
 raw_data = raw_data[['Name', 'Position', 'ChampionName', 'Side', 'GameDuration', 'Result', 'Kills', 'Deaths', 'Assists', 'KillParticipation', 'CS',
-                     'Gold', 'GoldPercent', 'DamageDealt', 'DamageDealtPercent', 'DamageTaken', 'DamageTakenPercent', 'VisionScore', 'TotalPlayerGames', 'TotalChampGames']]
+                     'Gold', 'GoldPercent', 'DamageDealt', 'DamageDealtPercent', 'DamageTaken', 'DamageTakenPercent', 'VisionScore', 'TotalPlayerGames', 'TotalChampGames', 'GameID']]
 
 game_data.to_json('../game_data.json', orient = 'records')
 winrate.to_json('../winrate.json', orient = 'values')
