@@ -35,7 +35,8 @@ df['summonerName'] = df['summonerName'].replace({
     'ducks on pond': 'Anthony',
     'Kinga': 'Kinga',
     'YoungOcelot': 'Milroy',
-    'ScottSucks':'Furb'
+    'ScottSucks':'Furb',
+    'SprightReamicks': 'Franklin'
 })
 
 #Edit/add columns.

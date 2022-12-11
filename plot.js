@@ -138,7 +138,7 @@ function buildWinrateTable() {
     d3.json('winrate.json').then((data) => {
 
          //Create list of players to serve as rows.
-        players_list = ['Andy', 'Anthony', 'Beals', 'Desp', 'Furb', 'Jackson', 'Jess', 'Kinga', 'Kori', 'Luke', 'Milroy', 'Moo', 'Nick B.', 'Nick D.', 'Rob', 'Tonnie', 'Tyler'];
+        players_list = ['Andy', 'Anthony', 'Beals', 'Desp', 'Franklin', 'Furb', 'Jackson', 'Jess', 'Kinga', 'Kori', 'Luke', 'Milroy', 'Moo', 'Nick B.', 'Nick D.', 'Rob', 'Tonnie', 'Tyler'];
 
         //Create list of stats to serve as column headers.
         headers_list = ['', 'NumberOfGames', 'Wins', 'Losses', 'WinPercent'];
@@ -178,7 +178,7 @@ function buildWinrateTable() {
         }];
 
         //Plot table.
-        Plotly.newPlot('table', tableData, {height: 550});
+        Plotly.newPlot('table', tableData, {height: 600});
         
     });
 };
@@ -192,10 +192,10 @@ function buildOppTeamTable() {
     d3.json('head_to_head.json').then((data) => {
         
         //Create list of players to serve as columns and rows.
-        players_list = ['', 'Andy', 'Anthony', 'Beals', 'Desp', 'Furb', 'Jackson', 'Jess', 'Kinga',
+        players_list = ['', 'Andy', 'Anthony', 'Beals', 'Desp', 'Franklin', 'Furb', 'Jackson', 'Jess', 'Kinga',
                         'Kori', 'Luke', 'Milroy', 'Moo', 'Nick B.', 'Nick D.', 'Rob', 'Tonnie', 'Tyler'];
 
-        players_list2 = ['Andy', 'Anthony', 'Beals', 'Desp', 'Furb', 'Jackson', 'Jess', 'Kinga',
+        players_list2 = ['Andy', 'Anthony', 'Beals', 'Desp', 'Franklin', 'Furb', 'Jackson', 'Jess', 'Kinga',
                         'Kori', 'Luke', 'Milroy', 'Moo', 'Nick B.', 'Nick D.', 'Rob', 'Tonnie', 'Tyler'];
         
         //Create empty array to store data.
@@ -227,6 +227,7 @@ function buildOppTeamTable() {
         table_list_14 = table_list.slice(14*z, 15*z);
         table_list_15 = table_list.slice(15*z, 16*z);
         table_list_16 = table_list.slice(16*z, 17*z);
+        table_list_17 = table_list.slice(17*z, 18*z);
 
         //Build table.
         tableData = [{
@@ -236,12 +237,12 @@ function buildOppTeamTable() {
             },
             cells: {
                 values: [players_list2, table_list_0, table_list_1, table_list_2, table_list_3, table_list_4, table_list_5, table_list_6, table_list_7, table_list_8, table_list_9,
-                         table_list_10, table_list_11, table_list_12, table_list_13, table_list_14, table_list_15, table_list_16]
+                         table_list_10, table_list_11, table_list_12, table_list_13, table_list_14, table_list_15, table_list_16, table_list_17]
             }
         }];
 
         //PLot table.
-        Plotly.newPlot('table2', tableData, {height: 550});
+        Plotly.newPlot('table2', tableData, {height: 600});
 
     });
 };
@@ -255,9 +256,9 @@ function buildSameTeamTable() {
     d3.json('same_team.json').then((data) => {
         
         //Create list of players to serve as columns and rows.
-        players_list = ['', 'Andy', 'Anthony', 'Beals', 'Desp', 'Furb', 'Jackson', 'Jess', 'Kinga', 'Kori', 'Luke', 'Milroy', 'Moo', 'Nick B.', 'Nick D.', 'Rob', 'Tonnie', 'Tyler'];
+        players_list = ['', 'Andy', 'Anthony', 'Beals', 'Desp', 'Franklin', 'Furb', 'Jackson', 'Jess', 'Kinga', 'Kori', 'Luke', 'Milroy', 'Moo', 'Nick B.', 'Nick D.', 'Rob', 'Tonnie', 'Tyler'];
 
-        players_list2 = ['Andy', 'Anthony', 'Beals', 'Desp', 'Furb', 'Jackson', 'Jess', 'Kinga', 'Kori', 'Luke', 'Milroy', 'Moo', 'Nick B.', 'Nick D.', 'Rob', 'Tonnie', 'Tyler'];
+        players_list2 = ['Andy', 'Anthony', 'Beals', 'Desp', 'Franklin', 'Furb', 'Jackson', 'Jess', 'Kinga', 'Kori', 'Luke', 'Milroy', 'Moo', 'Nick B.', 'Nick D.', 'Rob', 'Tonnie', 'Tyler'];
         
         //Create empty array to store data.
         table_list = [];
@@ -288,6 +289,7 @@ function buildSameTeamTable() {
         table_list_14 = table_list.slice(14*z, 15*z);
         table_list_15 = table_list.slice(15*z, 16*z);
         table_list_16 = table_list.slice(16*z, 17*z);
+        table_list_17 = table_list.slice(17*z, 18*z);
 
         //Build table.
         tableData = [{
@@ -297,12 +299,12 @@ function buildSameTeamTable() {
             },
             cells: {
                 values: [players_list2, table_list_0, table_list_1, table_list_2, table_list_3, table_list_4, table_list_5, table_list_6, table_list_7, table_list_8, table_list_9,
-                         table_list_10, table_list_11, table_list_12, table_list_13, table_list_14, table_list_15, table_list_16]
+                         table_list_10, table_list_11, table_list_12, table_list_13, table_list_14, table_list_15, table_list_16, table_list_17]
             }
         }];
 
         //Plot table.
-        Plotly.newPlot('table3', tableData, {height: 550});
+        Plotly.newPlot('table3', tableData, {height: 600});
 
     });
 };
