@@ -27,8 +27,10 @@ df['summonerName'] = df['summonerName'].replace({
     'Large Ski11 Gap': 'Tyler',
     'Net n Yahoo': 'Tyler',
     'Sp4nK1n M0nK3y5': 'Tyler',
+    'SmokeDopeNotCope': 'Tyler',
     'HTXpanda': 'Jess',
     'NickBlumer': 'Nick B.',
+    'G4ytr0x': 'Moo',
     'M4SHALLAH': 'Moo',
     'For Gun': 'Moo',
     'Anonymous Lemur': 'Nick D.',
@@ -337,7 +339,7 @@ for i in range(len(player_list)):
     same_team[player_list[i]] = same_team_list[len(player_list)*i:len(player_list)*(i+1)]
 
 #Edit dataframes for export to JSON file.
-game_data = game_data[game_data['gameId'] > 2]
+game_data = game_data[game_data['gameId'] > 4]
 game_data = game_data.replace({'individualPosition': {'TOP': 'Top', 'JUNGLE': 'Jung', 'MIDDLE': 'Mid', 'BOTTOM': 'Bot', 'UTILITY': 'Supp'}})
 game_data = game_data.rename(columns = {
     'gameId': 'NumberOfGames',
@@ -390,7 +392,7 @@ game_data['FirstTowerPercent'] = game_data['FirstTowerPercent']*100
 
 winrate['wp'] = winrate['wp']*100
 
-pick_ban = pick_ban[pick_ban['pickban_perc'] > 0.11]
+pick_ban = pick_ban[pick_ban['pickban_perc'] > 0.1499]
 pick_ban = pick_ban.rename(columns = {
     'pickban_perc': 'PickBanPercent',
     'pick': 'Picks',
