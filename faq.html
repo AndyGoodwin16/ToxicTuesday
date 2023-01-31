@@ -13,7 +13,9 @@
 
     <!-- Custom fonts for this template-->
     <link href='vendor/fontawesome-free/css/all.min.css' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i' rel='stylesheet'>
+    <link
+        href='https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i'
+        rel='stylesheet'>
 
     <!-- Custom styles for this template-->
     <link href='css/sb-admin-2.min.css' rel='stylesheet'>
@@ -105,133 +107,116 @@
 
                 <!-- Begin Page Content -->
                 <div class='container-fluid'>                      
-                    
+    
                     <!-- Content Row -->
                     <div class='row'>
 
-                        <!-- In-Game Stats Chart -->
                         <div class='col-xl-12 col-lg-7'>
                             <div class='card shadow mb-4'>
 
-                                <!-- Card Header - Dropdown -->
                                 <div class='card-header py-3 d-flex flex-row align-items-center justify-content-between'>
-                                    <h6 class='m-0 font-weight-bold text-primary'>In-Game Stats by Player and Position</h6>
-                                    <div class='dropdown no-arrow'>
-                                        <select id='selDataset' onchange='optionChanged(this.value)'></select>
-                                    </div>
+                                    <h6 class='m-0 font-weight-bold text-primary'>What is League of Legends?</h6> 
                                 </div>
 
-                                <!-- Card Body -->
-                                <div class='card-body'>
-                                    <div id='bar'></div>
+                                <div class="card-body">
+                                    <p>"League of Legends (League or LoL) is a multiplayer online battle arena video game. Two teams of five players battle in player-versus-player combat, each team occupying and defending their half of the map. Each of the ten players controls a character, known as a "champion", with unique abilities and differing styles of play. During a match, champions become more powerful by collecting experience points, earning gold, and purchasing items to defeat the opposing team. In League's main mode, Summoner's Rift, a team wins by pushing through to the enemy base and destroying their "Nexus", a large structure located within.”</p>
                                 </div>
 
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Content Row -->
                     <div class='row'>
 
-                        <!-- Pick-Ban Chart -->
                         <div class='col-xl-12 col-lg-7'>
                             <div class='card shadow mb-4'>
 
-                                <!-- Card Header - Dropdown -->
                                 <div class='card-header py-3 d-flex flex-row align-items-center justify-content-between'>
-                                    <h6 class='m-0 font-weight-bold text-primary'>Pick-Ban Stats by Champion</h6>
-                                    <div class='dropdown no-arrow'>
-                                        <select id='selDataset2' onchange='optionChanged2(this.value)'></select>
-                                    </div>
+                                    <h6 class='m-0 font-weight-bold text-primary'>What is the motivation for this tool?</h6>
                                 </div>
 
-                                <!-- Card Body -->
-                                <div class='card-body'>
-                                    <div id='bar2'></div>
+                                <div class="card-body">
+                                    <p>My friends from college and I have been playing League since 2013 – it is one of our favorite methods of staying in touch and hanging out since many of us have now moved around the country. Regularly, we will play “in-houses”, in which ten of us are split into two teams of five to play against one another for the ultimate bragging rights. Due to privacy concerns, Riot (development company of League) has made these private, custom matches only viewable by the participants and thus, the data is inaccessible. Therefore, we requested and were granted access to generate our own tournament codes for these custom matches, which allows for Riot to store the game data and for us to access it via their API. The Toxic Tuesday website is an amalgamation of certain game data from all the matches we have played under the tournament code system.</p>
                                 </div>
 
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Content Row -->
+
                     <div class='row'>
 
-                        <!-- Card Header -->
                         <div class='col-xl-12 col-lg-7'>
                             <div class='card shadow mb-4'>
+
                                 <div class='card-header py-3 d-flex flex-row align-items-center justify-content-between'>
-                                    <h6 class='m-0 font-weight-bold text-primary'>Winrate Table</h6>
+                                    <h6 class='m-0 font-weight-bold text-primary'>What is the general work flow?</h6>
                                 </div>
+
+                                <div class="card-body">
+                                    <p>All game data from custom matches created via a tournament code are accessible through Riot’s API given a valid Riot API key and the game ID of the desired match. The game data is returned in a JSON format, so using a Python script, the desired data was gathered into several different table formats and stored in a SQlite file for future use. Another Python script imported, transformed, and exported the stored data as JSON files in the desired format. A JavaScript file, using Plotly, imported the JSON files and generated interactable charts/tables. Finally, HTML files displayed data/charts/tables on an interactive website hosted via GitHub Pages.</p>
+                                </div>
+
                             </div>
                         </div>
-
-                        <!-- Card Body -->
-                        <div class='card-body'>
-                            <div id='table'></div>
-                        </div>
-
                     </div>
 
-                    <!-- Content Row -->
                     <div class='row'>
 
-                        <!-- Card Header -->
                         <div class='col-xl-12 col-lg-7'>
                             <div class='card shadow mb-4'>
+
                                 <div class='card-header py-3 d-flex flex-row align-items-center justify-content-between'>
-                                    <h6 class='m-0 font-weight-bold text-primary'>Head to Head Table</h6>
+                                    <h6 class='m-0 font-weight-bold text-primary'>What future data and/or visualizations will be included?</h6>
                                 </div>
+
+                                <div class="card-body">
+                                    <p>There are three different JSON files accessible per game ID – game data, pick and ban data, and timeline data. The tool in its current form only accesses the first two files to generate the displayed data. Timeline data contains much more specific data to the individual matches, like specific locations and statistics of certain characters at certain points during the game.  Valuable metrics about playstyle of specific participants may be gleamed from this data and thus, it will certainly be explored in the near future.</p>
+                                </div>
+
                             </div>
                         </div>
-
-                        <!-- Card Body -->
-                        <div class='card-body'>
-                            <div id='table2'></div>
-                        </div>
-
                     </div>
 
-                    <!-- Content Row -->
                     <div class='row'>
 
-                        <!-- Card Header -->
                         <div class='col-xl-12 col-lg-7'>
                             <div class='card shadow mb-4'>
+
                                 <div class='card-header py-3 d-flex flex-row align-items-center justify-content-between'>
-                                    <h6 class='m-0 font-weight-bold text-primary'>On Same Team Table</h6>
+                                    <h6 class='m-0 font-weight-bold text-primary'>Can this tool be applied to any group looking to track custom game data?</h6>
                                 </div>
+
+                                <div class="card-body">
+                                    <p>Yes, anyone with access from Riot to generate their own tournament codes and API keys (both of which Riot gladly gives out) can modify this tool for their own use. While there are some specific lines of code targeted to our specific group and other special case scenarios, there is nothing too difficult here that it cannot be generalized. Anyone who wishes to use this tool for their own purposes, please contact me and I would be happy to help with setup!</p>
+                                </div>
+
                             </div>
                         </div>
-                    
-                        <!-- Card Body -->
-                        <div class='card-body'>
-                            <div id='table3'></div>
-                        </div>
-
                     </div>
 
-                </div>
-                <!-- /.container-fluid -->
+                    <div class='row'>
 
+                        <div class='col-xl-12 col-lg-7'>
+                            <div class='card shadow mb-4'>
+
+                                <div class='card-header py-3 d-flex flex-row align-items-center justify-content-between'>
+                                    <h6 class='m-0 font-weight-bold text-primary'>How can I contact you?</h6>
+                                </div>
+
+                                <div class="card-body">
+                                    <p>My name is Andrew Goodwin and below are my contact links.</p>
+                                    <p>Email: goodwin.242@osu.edu</p>
+                                    <p>GitHub: <a target="_blank" rel="nofollow" href="https://github.com/AndyGoodwin16">github.com/AndyGoodwin16</a></p>
+                                    <p>LinkedIn: <a target="_blank" rel="nofollow" href="https://linkedin.com/in/andrew-goodwin-269818237">linkedin.com/in/andrew-goodwin-269818237</a></p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>                
             </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class='sticky-footer bg-white'>
-                <div class='container my-auto'>
-                    <div class='copyright text-center my-auto'>
-                        <span>Copyright &copy; Toxic Tuesday 2022</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
         </div>
-        <!-- End of Content Wrapper -->
-
     </div>
-    <!-- End of Page Wrapper -->
 
     <!-- Bootstrap core JavaScript-->
     <script src='vendor/jquery/jquery.min.js'></script>
@@ -251,5 +236,3 @@
     <script src='plot.js'></script>
 
 </body>
-
-</html>
