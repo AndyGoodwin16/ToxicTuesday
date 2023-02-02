@@ -51,6 +51,8 @@ df['cs'] = df['totalMinionsKilled'] + df['neutralMinionsKilled']
 df['teamId'] = df['teamId'].replace(100, 'BLUE')
 df['teamId'] = df['teamId'].replace(200, 'RED')
 df.loc[df['summonerName'] == 'Jess', 'individualPosition'] = 'UTILITY'
+df.loc[df['championName'] == 'Twitch', 'individualPosition'] = 'BOTTOM'
+df.loc[df['championName'] == 'Nautilus', 'individualPosition'] = 'UTILITY'
 change_col_list = ['win', 'firstBloodKill', 'firstBloodAssist', 'firstTowerKill', 'firstTowerAssist']
 for i in change_col_list:
     df[i] = df[i].replace('1', 1)
