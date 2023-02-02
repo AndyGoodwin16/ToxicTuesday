@@ -35,6 +35,7 @@ df['summonerName'] = df['summonerName'].replace({
     'M4SHALLAH': 'Moo',
     'the scouts chode': 'Moo',
     'For Gun': 'Moo',
+    'ezcyabye': 'Moo',
     'Anonymous Lemur': 'Nick D.',
     'Despp': 'Desp',
     'ducks on pond': 'Anthony',
