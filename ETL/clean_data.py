@@ -344,7 +344,7 @@ for i in range(len(player_list)):
     same_team[player_list[i]] = same_team_list[len(player_list)*i:len(player_list)*(i+1)]
 
 #Edit dataframes for export to JSON file.
-game_data = game_data[game_data['gameId'] > 4]
+game_data = game_data[game_data['gameId'] > 5]
 game_data = game_data.replace({'individualPosition': {'TOP': 'Top', 'JUNGLE': 'Jung', 'MIDDLE': 'Mid', 'BOTTOM': 'Bot', 'UTILITY': 'Supp'}})
 game_data = game_data.rename(columns = {
     'gameId': 'NumberOfGames',
