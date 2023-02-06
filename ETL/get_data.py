@@ -7,7 +7,7 @@ from pathlib import Path
 #Two functions (getGameData and getPickBanData) each take in a game_id and output data in a list of lists format. Create dataframes from output, then manipulate data into appropriate form.
 
 #UPDATE api_key every 24 hours.
-api_key = 'INSERT API KEY HERE'
+api_key = 'RGAPI-2ce39922-bd0a-470b-b054-4723d55cd664'
 
 #List of game_ids, COMMENT OUT below after inital data dump to sqlite file.
 #game_id_list = ['4438988683', '4439457855', '4439408609', '4448659747', '4448570106', 
@@ -17,13 +17,13 @@ api_key = 'INSERT API KEY HERE'
 #                '4499891862', '4503054772', '4503091285', '4503143936', '4503828531',
 #                '4503893875', '4505391396', '4505454449', '4511080568', '4511139321',
 #                '4511177733', '4515152757', '4515197600', '4515262943', '4521767469', 
-#                '4521808337', '4521856346', '4521911672', '4524625280', '4524698522',
+#                '4521808337', '!4521856346!', '4521911672', '4524625280', '4524698522',
 #                '4544075619', '4544139567', '4544185694', '4549142029', '4549227268', 
 #                '4549278702', '4556262158', '4556304608', '4556365588', '4564950976',
 #                '4565012101', '4565052483', '4569548764', '4569587781', '4569632202']
 
 #UNCOMMENT OUT below to load new data into sqlite file.
-game_id_list = ['INSERT GAMEIDS HERE']
+game_id_list = ['4565012101', '4565052483', '4569548764', '4569587781', '4569632202']
 
 #Empty list to collect data.
 total_data_list = []
@@ -36,7 +36,7 @@ def getGameData(game_id):
     #Create lists of desired stats, seperate by where in json data structure stats exist.
     info_list = ['gameId', 'gameVersion', 'gameDuration']
     participants_list = ['summonerName', 'teamId', 'individualPosition', 'championName', 'win', 'kills', 'deaths', 'assists', 'totalMinionsKilled', 'neutralMinionsKilled', 'goldEarned',
-                    'totalDamageDealtToChampions', 'totalDamageTaken', 'totalHeal', 'totalHealsOnTeammates', 'totalDamageShieldedOnTeammates', 'damageDealtToTurrets',
+                    'totalDamageDealtToChampions', 'totalDamageTaken', 'totalHeal', 'totalHealsOnTeammates', 'totalDamageShieldedOnTeammates', 'timeCCingOthers', 'damageDealtToTurrets',
                     'visionScore', 'wardsPlaced', 'wardsKilled', 'visionWardsBoughtInGame', 'firstBloodKill', 'firstBloodAssist', 'firstTowerKill', 'firstTowerAssist',
                     'doubleKills', 'tripleKills', 'quadraKills', 'pentaKills']
     challenges_list = ['laneMinionsFirst10Minutes', 'jungleCsBefore10Minutes', 'outnumberedKills', 'soloKills',
@@ -111,7 +111,7 @@ def getGameData(game_id):
 
 #Column headers for initial game data dataframe.
 headers1 = ['gameId', 'gameVersion', 'gameDuration', 'summonerName', 'teamId', 'individualPosition', 'championName', 'win', 'kills', 'deaths', 'assists', 'totalMinionsKilled', 'neutralMinionsKilled', 
-           'goldEarned', 'totalDamageDealtToChampions', 'totalDamageTaken', 'totalHeal', 'totalHealsOnTeammates', 'totalDamageShieldedOnTeammates', 'damageDealtToTurrets', 'visionScore', 'wardsPlaced', 
+           'goldEarned', 'totalDamageDealtToChampions', 'totalDamageTaken', 'totalHeal', 'totalHealsOnTeammates', 'totalDamageShieldedOnTeammates', 'timeCCingOthers', 'damageDealtToTurrets', 'visionScore', 'wardsPlaced', 
            'wardsKilled', 'visionWardsBoughtInGame', 'firstBloodKill', 'firstBloodAssist', 'firstTowerKill', 'firstTowerAssist', 'doubleKills', 'tripleKills', 'quadraKills', 'pentaKills', 
            'laneMinionsFirst10Minutes', 'jungleCsBefore10Minutes', 'outnumberedKills', 'soloKills', 'turretPlatesTaken', 'epicMonsterSteals', 'skillshotsHit', 'skillshotsDodged', 'wardsGuarded',
            'abilityUses']
@@ -150,9 +150,11 @@ def getPickBanData(game_id):
     #List must be in string format to match json data from ddragon.
     red_bans_key_list = list(map(str, red_bans_key_list))
     
+    #For game id 4521856346, one blue side ban was missed. To include game, change range to 0 to 4 and manually append 17 (Teemo).
     blue_bans_key_list = []
     for i in range(0,5):
         blue_bans_key_list.append(response['info']['teams'][0]['bans'][i]['championId'])
+    #blue_bans_key_list.append(17)
     blue_bans_key_list = list(map(str, blue_bans_key_list))
 
     #champions_name_list is a list of champion names.
@@ -213,15 +215,15 @@ con = sqlite3.connect(database_path)
 cur = con.cursor()
 
 #Create tables, COMMENT OUT after initial set up.
-# cur.execute('''CREATE TABLE gamedata ( gameId int, gameVersion text, gameDuration int, summonerName text, teamId int, individualPosition text, championName text, win text, kills int, deaths int, assists int, 
+#cur.execute('''CREATE TABLE gamedata ( gameId int, gameVersion text, gameDuration int, summonerName text, teamId int, individualPosition text, championName text, win text, kills int, deaths int, assists int, 
 #                                         totalMinionsKilled int, neutralMinionsKilled int, goldEarned int, totalDamageDealtToChampions int, totalDamageTaken int, totalHeal int, totalHealsOnTeammates int,
-#                                         totalDamageShieldedOnTeammates int, damageDealtToTurrets int, visionScore int, wardsPlaced int, wardsKilled int, visionWardsBoughtInGame int, firstBloodKill text, 
+#                                         totalDamageShieldedOnTeammates int, timeCCingOthers int, damageDealtToTurrets int, visionScore int, wardsPlaced int, wardsKilled int, visionWardsBoughtInGame int, firstBloodKill text, 
 #                                         firstBloodAssist text, firstTowerKill text, firstTowerAssist text, doubleKills int, tripleKills int, quadraKills int, pentaKills int, laneMinionsFirst10Minutes int, 
 #                                         jungleCsBefore10Minutes float, outnumberedKills int, soloKills int, turretPlatesTaken int, epicMonsterSteals int, skillshotsHit int, skillshotsDodged int, 
 #                                         wardsGuarded int, abilityUses int )''')
-# cur.execute('''CREATE TABLE picks ( gameId int, championName text, teamId int, win text)''')
-# cur.execute('''CREATE TABLE redBans ( firstBan text, secondBan text, thirdBan text, fourthBan text, fifthBan text )''')
-# cur.execute('''CREATE TABLE blueBans ( firstBan text, secondBan text, thirdBan text, fourthBan text, fifthBan text )''')
+#cur.execute('''CREATE TABLE picks ( gameId int, championName text, teamId int, win text)''')
+#cur.execute('''CREATE TABLE redBans ( firstBan text, secondBan text, thirdBan text, fourthBan text, fifthBan text )''')
+#cur.execute('''CREATE TABLE blueBans ( firstBan text, secondBan text, thirdBan text, fourthBan text, fifthBan text )''')
 
 #Import data.
 df_gamedata.to_sql('gamedata', con, if_exists='append', index=False)
