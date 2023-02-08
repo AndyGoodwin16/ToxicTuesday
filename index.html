@@ -18,6 +18,8 @@
     <!-- Custom styles for this template-->
     <link href='css/sb-admin-2.min.css' rel='stylesheet'>
 
+    <link href="https://cdn.jsdelivr.net/gh/tofsjonas/sortable@latest/sortable.min.css" rel="stylesheet" />
+
 </head>
 
 <body id='page-top'>
@@ -168,7 +170,9 @@
 
                         <!-- Card Body -->
                         <div class='card-body'>
-                            <div id='table'></div>
+                            <table class='sortable'>
+                                <div id='table'></div>
+                            </table>
                         </div>
 
                     </div>
@@ -249,6 +253,8 @@
     <script src='https://d3js.org/d3.v5.min.js'></script>
     <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
     <script src='plot.js'></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/tofsjonas/sortable@latest/sortable.min.js"></script>
 
 </body>
 

@@ -269,6 +269,8 @@ pick_ban = pick_ban.fillna(0)
 
 #Add columns.
 pick_ban['pickban_perc'] = (pick_ban['pick'] + pick_ban['ban']) / len(df['gameId'].unique().tolist())
+pick_ban['FirstPhaseBan'] = pick_ban['redFirstPhaseBan'] + pick_ban['blueFirstPhaseBan']
+pick_ban['SecondPhaseBan'] = pick_ban['redSecondPhaseBan'] + pick_ban['blueSecondPhaseBan']
 pick_ban['ban_red'] = pick_ban['redFirstPhaseBan'] + pick_ban['redSecondPhaseBan']
 pick_ban['ban_blue'] = pick_ban['blueFirstPhaseBan'] + pick_ban['blueSecondPhaseBan']
 
@@ -277,6 +279,7 @@ pick_ban = pick_ban.reset_index()
 pick_ban = pick_ban[['championName', 'pickban_perc', 'pick', 'ban', 'win', 'loss', 'wp', 
                     'pick_red', 'win_red', 'loss_red', 'wp_red', 
                     'pick_blue', 'win_blue', 'loss_blue', 'wp_blue',
+                    'FirstPhaseBan', 'SecondPhaseBan',
                     'ban_red', 'redFirstPhaseBan', 'redSecondPhaseBan', 'ban_blue', 'blueFirstPhaseBan', 'blueSecondPhaseBan']]
 
 #Create grid display of Win/Loss between two players on the opposite team.
@@ -415,6 +418,8 @@ pick_ban = pick_ban.rename(columns = {
     'win_blue': 'BlueWins',
     'loss_blue': 'BlueLosses',
     'wp_blue': 'BlueWinPercent',
+    'FirstPhaseBan': 'FirstPhaseBan',
+    'SecondPhaseBan': 'SecondPhaseBan',
     'ban_red': 'RedBans',
     'redFirstPhaseBan': 'RedFirstPhaseBan',
     'redSecondPhaseBan': 'RedSecondPhaseBan',
