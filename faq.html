@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href='css/sb-admin-2.min.css' rel='stylesheet'>
+    <link rel='stylesheet' type='text/css' href='https://cdn.datatables.net/v/dt/dt-1.13.2/datatables.min.css'/>
 
 </head>
 
@@ -48,35 +49,18 @@
                     <span>Overall Stats</span></a>
             </li>
 
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class='nav-item'>
-                <a class='nav-link collapsed' href='#' data-toggle='collapse' data-target='#collapseTwo'
-                    aria-expanded='true' aria-controls='collapseTwo'>
-                    <i class='fas fa-fw fa-tachometer-alt'></i>
-                    <span>Match History</span>
-                </a>
-                <div id='collapseTwo' class='collapse' aria-labelledby='headingTwo' data-parent='#accordionSidebar'>
-                    <div class='bg-white py-2 collapse-inner rounded'>
-                        <a class='collapse-item' href='mh_player.html'>Player Name</a>
-                        <a class='collapse-item' href='mh_champion.html'>Champion Name</a>
-                        <a class='collapse-item' href='mh_gameid.html'>Game ID</a>
-                    </div>
-                </div>
+            <!-- Nav Item - Dashboard -->
+            <li class='nav-item active'>
+                <a class='nav-link' href='datatable.html'>
+                    <i class='fas fa-fw fa-table'></i>
+                    <span>Data Table</span></a>
             </li>
 
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class='nav-item'>
-                <a class='nav-link collapsed' href='#' data-toggle='collapse' data-target='#collapseUtilities'
-                    aria-expanded='true' aria-controls='collapseUtilities'>
+            <!-- Nav Item - Dashboard -->
+            <li class='nav-item active'>
+                <a class='nav-link' href='faq.html'>
                     <i class='fas fa-fw fa-cog'></i>
-                    <span>About</span>
-                </a>
-                <div id='collapseUtilities' class='collapse' aria-labelledby='headingUtilities'
-                    data-parent='#accordionSidebar'>
-                    <div class='bg-white py-2 collapse-inner rounded'>
-                        <a class='collapse-item' href='faq.html'>FAQ</a>
-                    </div>
-                </div>
+                    <span>FAQ</span></a>
             </li>
 
             <!-- Divider -->
@@ -102,6 +86,7 @@
                     <button id='sidebarToggleTop' class='btn btn-link d-md-none rounded-circle mr-3'>
                         <i class='fa fa-bars'></i>
                     </button>
+
                 </nav>
                 <!-- End of Topbar -->
 
@@ -118,8 +103,14 @@
                                     <h6 class='m-0 font-weight-bold text-primary'>What is League of Legends?</h6> 
                                 </div>
 
-                                <div class="card-body">
-                                    <p>"League of Legends (League or LoL) is a multiplayer online battle arena video game. Two teams of five players battle in player-versus-player combat, each team occupying and defending their half of the map. Each of the ten players controls a character, known as a "champion", with unique abilities and differing styles of play. During a match, champions become more powerful by collecting experience points, earning gold, and purchasing items to defeat the opposing team. In League's main mode, Summoner's Rift, a team wins by pushing through to the enemy base and destroying their "Nexus", a large structure located within.”</p>
+                                <div class='card-body'>
+                                    <p>
+                                        "League of Legends (League or LoL) is a multiplayer online battle arena video game. Two teams of five players battle in player-versus-player combat, 
+                                        each team occupying and defending their half of the map. Each of the ten players controls a character, known as a "champion", with unique abilities 
+                                        and differing styles of play. During a match, champions become more powerful by collecting experience points, earning gold, and purchasing items to 
+                                        defeat the opposing team. In League's main mode, Summoner's Rift, a team wins by pushing through to the enemy base and destroying their "Nexus", 
+                                        a large structure located within.”
+                                    </p>
                                 </div>
 
                             </div>
@@ -135,8 +126,15 @@
                                     <h6 class='m-0 font-weight-bold text-primary'>What is the motivation for this tool?</h6>
                                 </div>
 
-                                <div class="card-body">
-                                    <p>My friends from college and I have been playing League since 2013 – it is one of our favorite methods of staying in touch and hanging out since many of us have now moved around the country. Regularly, we will play “in-houses”, in which ten of us are split into two teams of five to play against one another for the ultimate bragging rights. Due to privacy concerns, Riot (development company of League) has made these private, custom matches only viewable by the participants and thus, the data is inaccessible. Therefore, we requested and were granted access to generate our own tournament codes for these custom matches, which allows for Riot to store the game data and for us to access it via their API. The Toxic Tuesday website is an amalgamation of certain game data from all the matches we have played under the tournament code system.</p>
+                                <div class='card-body'>
+                                    <p>
+                                        My friends from college and I have been playing League since 2013 – it is one of our favorite methods of staying in touch and hanging out since many of 
+                                        us have now moved around the country. Regularly, we will play “in-houses”, in which ten of us are split into two teams of five to play against one 
+                                        another for the ultimate bragging rights. Due to privacy concerns, Riot (development company of League) has made these private, custom matches only 
+                                        viewable by the participants and thus, the data is inaccessible. Therefore, we requested and were granted access to generate our own tournament codes 
+                                        for these custom matches, which allows for Riot to store the game data and for us to access it via their API. The Toxic Tuesday website is an 
+                                        amalgamation of certain game data from all the matches we have played under the tournament code system.
+                                    </p>
                                 </div>
 
                             </div>
@@ -152,8 +150,14 @@
                                     <h6 class='m-0 font-weight-bold text-primary'>What is the general work flow?</h6>
                                 </div>
 
-                                <div class="card-body">
-                                    <p>All game data from custom matches created via a tournament code are accessible through Riot’s API given a valid Riot API key and the game ID of the desired match. The game data is returned in a JSON format, so using a Python script, the desired data was gathered into several different table formats and stored in a SQlite file for future use. Another Python script imported, transformed, and exported the stored data as JSON files in the desired format. A JavaScript file, using Plotly, imported the JSON files and generated interactable charts/tables. Finally, HTML files displayed data/charts/tables on an interactive website hosted via GitHub Pages.</p>
+                                <div class='card-body'>
+                                    <p>
+                                        All game data from custom matches created via a tournament code are accessible through Riot’s API given a valid Riot API key and the game ID of the 
+                                        desired match. The game data is returned in a JSON format, so using a Python script, the desired data was gathered into several different table formats 
+                                        and stored in a SQlite file for future use. Another Python script imported, transformed, and exported the stored data as JSON files in the desired 
+                                        format. A JavaScript file, using Plotly, imported the JSON files and generated interactable charts/tables. Finally, HTML files displayed 
+                                        data/charts/tables on an interactive website hosted via GitHub Pages.
+                                    </p>
                                 </div>
 
                             </div>
@@ -169,8 +173,13 @@
                                     <h6 class='m-0 font-weight-bold text-primary'>What future data and/or visualizations will be included?</h6>
                                 </div>
 
-                                <div class="card-body">
-                                    <p>There are three different JSON files accessible per game ID – game data, pick and ban data, and timeline data. The tool in its current form only accesses the first two files to generate the displayed data. Timeline data contains much more specific data to the individual matches, like specific locations and statistics of certain characters at certain points during the game.  Valuable metrics about playstyle of specific participants may be gleamed from this data and thus, it will certainly be explored in the near future.</p>
+                                <div class='card-body'>
+                                    <p>
+                                        There are three different JSON files accessible per game ID – game data, pick and ban data, and timeline data. The tool in its current form only accesses 
+                                        the first two files to generate the displayed data. Timeline data contains much more specific data to the individual matches, like specific locations 
+                                        and statistics of certain characters at certain points during the game.  Valuable metrics about playstyle of specific participants may be gleamed from 
+                                        this data and thus, it will certainly be explored in the near future.
+                                    </p>
                                 </div>
 
                             </div>
@@ -186,8 +195,13 @@
                                     <h6 class='m-0 font-weight-bold text-primary'>Can this tool be applied to any group looking to track custom game data?</h6>
                                 </div>
 
-                                <div class="card-body">
-                                    <p>Yes, anyone with access from Riot to generate their own tournament codes and API keys (both of which Riot gladly gives out) can modify this tool for their own use. While there are some specific lines of code targeted to our specific group and other special case scenarios, there is nothing too difficult here that it cannot be generalized. Anyone who wishes to use this tool for their own purposes, please contact me and I would be happy to help with setup!</p>
+                                <div class='card-body'>
+                                    <p>
+                                        Yes, anyone with access from Riot to generate their own tournament codes and API keys (both of which Riot gladly gives out) can modify this tool for 
+                                        their own use. While there are some specific lines of code targeted to our specific group and other special case scenarios, there is nothing too 
+                                        difficult here that it cannot be generalized. Anyone who wishes to use this tool for their own purposes, please contact me and I would be happy to 
+                                        help with setup!
+                                    </p>
                                 </div>
 
                             </div>
@@ -203,11 +217,11 @@
                                     <h6 class='m-0 font-weight-bold text-primary'>How can I contact you?</h6>
                                 </div>
 
-                                <div class="card-body">
+                                <div class='card-body'>
                                     <p>My name is Andrew Goodwin and below are my contact links.</p>
                                     <p>Email: goodwin.242@osu.edu</p>
-                                    <p>GitHub: <a target="_blank" rel="nofollow" href="https://github.com/AndyGoodwin16">github.com/AndyGoodwin16</a></p>
-                                    <p>LinkedIn: <a target="_blank" rel="nofollow" href="https://linkedin.com/in/andrew-goodwin-269818237">linkedin.com/in/andrew-goodwin-269818237</a></p>
+                                    <p>GitHub: <a target='_blank' rel='nofollow' href='https://github.com/AndyGoodwin16'>github.com/AndyGoodwin16</a></p>
+                                    <p>LinkedIn: <a target='_blank' rel='nofollow' href='https://linkedin.com/in/andrew-goodwin-269818237'>linkedin.com/in/andrew-goodwin-269818237</a></p>
                                 </div>
 
                             </div>
@@ -230,9 +244,9 @@
 
     <!-- Page level plugins -->
     <script src='vendor/chart.js/Chart.min.js'></script>
-    
     <script src='https://d3js.org/d3.v5.min.js'></script>
     <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
     <script src='plot.js'></script>
+    <script type='text/javascript' src='https://cdn.datatables.net/v/dt/dt-1.13.2/datatables.min.js'></script>
 
 </body>

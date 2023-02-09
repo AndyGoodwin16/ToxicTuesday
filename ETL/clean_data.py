@@ -401,6 +401,7 @@ game_data['FirstBloodPercent'] = game_data['FirstBloodPercent']*100
 game_data['FirstTowerPercent'] = game_data['FirstTowerPercent']*100
 
 winrate['wp'] = winrate['wp']*100
+winrate = winrate.reset_index(drop = False)
 
 pick_ban = pick_ban[pick_ban['pickban_perc'] > 0.1499]
 pick_ban = pick_ban.rename(columns = {
@@ -467,14 +468,14 @@ raw_data = df4.rename(columns = {
     'total_champ_games': 'TotalChampGames'
 })
 raw_data = raw_data.sort_values(by = 'GameID')
-raw_data = raw_data[['Name', 'Position', 'ChampionName', 'Side', 'GameDuration', 'Result', 'Kills', 'Deaths', 'Assists', 'KillParticipation', 'CS',
-                     'Gold', 'GoldPercent', 'DamageDealt', 'DamageDealtPercent', 'DamageTaken', 'DamageTakenPercent', 'VisionScore', 'TotalPlayerGames', 'TotalChampGames', 'GameID']]
+raw_data = raw_data[['GameID', 'Name', 'Position', 'ChampionName', 'Side', 'GameDuration', 'Result', 'Kills', 'Deaths', 'Assists', 'KillParticipation', 'CS',
+                     'Gold', 'GoldPercent', 'DamageDealt', 'DamageDealtPercent', 'DamageTaken', 'DamageTakenPercent', 'VisionScore']]
 
 game_data.to_json('../game_data.json', orient = 'records')
-winrate.to_json('../winrate.json', orient = 'values')
+winrate.to_json('../winrate.json', orient = 'values', double_precision = 2)
 pick_ban.to_json('../pick_ban.json', orient = 'records')
 head_to_head.to_json('../head_to_head.json', orient = 'values')
 same_team.to_json('../same_team.json', orient = 'values')
-raw_data.to_json('../raw_data.json', orient = 'values')
+raw_data.to_json('../raw_data.json', orient = 'values', double_precision = 2)
 
 con.close()
