@@ -137,10 +137,21 @@ function buildWinrateTable() {
     //Import JSON file.
     d3.json('winrate.json').then((data) => {
 
+        //Fix win percent stat to two decimals.
+        for (i = 0; i < data.length; i++) {
+            data[i][4] = data[i][4].toFixed(2)
+        };
+
         //Use DataTables to create interactive table.
         $(document).ready(function () {
             $('#table').DataTable({
                 data: data,
+                columnDefs: [
+                    {
+                        targets: [0,1,2,3,4],
+                        className: 'dt-center'
+                    },
+                ],
                 columns: [
                     { title: 'Name' },
                     { title: 'NumberOfGames' },
@@ -292,10 +303,25 @@ function buildMatchHistory() {
     //Import JSON file.
     d3.json('raw_data.json').then((data) => {   
 
+        //Fix win percent stat to two decimals.
+        for (i = 0; i < data.length; i++) {
+            data[i][5] = data[i][5].toFixed(2)
+            data[i][10] = data[i][10].toFixed(2)
+            data[i][13] = data[i][13].toFixed(2)
+            data[i][15] = data[i][15].toFixed(2)
+            data[i][17] = data[i][17].toFixed(2)
+        };
+
         //Use DataTables to create interactive table.
         $(document).ready(function () {
             $('#table4').DataTable({
                 data: data,
+                columnDefs: [
+                    {
+                        targets: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18],
+                        className: 'dt-center'
+                    },
+                ],
                 columns: [
                     { title: 'GameID' },
                     { title: 'Name' },
