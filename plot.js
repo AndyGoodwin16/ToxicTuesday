@@ -344,7 +344,6 @@ function buildMatchHistory() {
                     { title: 'DmgTkn%' },
                     { title: 'VS' },
                 ],
-                scrollX: true,
             });
         });
 
