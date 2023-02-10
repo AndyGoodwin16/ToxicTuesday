@@ -162,7 +162,6 @@ function buildWinrateTable() {
                 paging: false,
                 searching: false,
                 info: false,
-                scrollX: true,
             });
         });
         
