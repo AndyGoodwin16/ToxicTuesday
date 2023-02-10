@@ -162,6 +162,7 @@ function buildWinrateTable() {
                 paging: false,
                 searching: false,
                 info: false,
+                scrollX: true,
             });
         });
         
@@ -343,6 +344,7 @@ function buildMatchHistory() {
                     { title: 'DmgTkn%' },
                     { title: 'VS' },
                 ],
+                scrollX: true,
             });
         });
 
