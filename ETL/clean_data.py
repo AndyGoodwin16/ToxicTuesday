@@ -13,7 +13,15 @@ df_pick = pd.read_sql('SELECT * FROM picks', con)
 df_red = pd.read_sql('SELECT * FROM redBans', con)
 df_blue = pd.read_sql('SELECT * FROM blueBans', con)
 
+con.close()
+
+#Import toxic score from csv.
+df_toxic_score = pd.read_csv('toxic_score.csv')
+
 #Create a dataframe of in-game stats by player and position.
+#Add toxic score to gamedata (df).
+df['toxic_score'] = df_toxic_score['toxic_score'].tolist()
+
 #Change summonerName to IRL name.
 df['summonerName'] = df['summonerName'].replace({
     'The Life of Andy': 'Andy',
@@ -100,7 +108,8 @@ df7['loss'] = df7['gameId'] - df7['win']
 df7['wp'] = df7['win'] / df7['gameId']
 
 #Create dataframe grouped by Position and Name showing appropriate stats to track per min.
-df_per_min = df4[['summonerName', 'individualPosition', 'gameDuration', 'cs', 'goldEarned', 'totalDamageDealtToChampions', 'totalDamageTaken', 'totalHeal', 'totalHealsOnTeammates', 'totalDamageShieldedOnTeammates', 'visionScore', 'wardsPlaced', 'wardsKilled']]
+df_per_min = df4[['summonerName', 'individualPosition', 'gameDuration', 'cs', 'goldEarned', 'totalDamageDealtToChampions', 'totalDamageTaken', 'totalHeal', 'totalHealsOnTeammates', 
+                  'totalDamageShieldedOnTeammates', 'visionScore', 'wardsPlaced', 'wardsKilled']]
 df_per_min = df_per_min.groupby(['individualPosition', 'summonerName']).sum()
 
 df_per_min['cspm'] = df_per_min['cs'] / df_per_min['gameDuration']
@@ -117,9 +126,10 @@ df_per_min['dpg'] = df_per_min['dpm'] / df_per_min['gpm']
 df_per_min = df_per_min[['cspm', 'gpm', 'dpm', 'dtpm', 'hpm', 'ahspm', 'vspm', 'wppm', 'wkpm', 'dpg']]
 
 #Create dataframe with appropriate per game stats and grouped by Position and Name.
-df8 = df4[['individualPosition', 'summonerName', 'kills', 'deaths', 'assists', 'goldEarned', 'totalDamageDealtToChampions', 'totalDamageTaken', 'timeCCingOthers', 'damageDealtToTurrets', 'firstBloodKill', 'firstBloodAssist', 'firstTowerKill',
-           'firstTowerAssist', 'turretPlatesTaken', 'soloKills', 'outnumberedKills', 'doubleKills', 'tripleKills', 'quadraKills', 'pentaKills', 'epicMonsterSteals', 'skillshotsHit', 'skillshotsDodged', 
-           'abilityUses', 'wardsGuarded', 'visionWardsBoughtInGame', 'laneMinionsFirst10Minutes', 'jungleCsBefore10Minutes', 'team_goldEarned', 'team_totalDamageDealtToChampions', 'team_totalDamageTaken', 'team_kills']]
+df8 = df4[['individualPosition', 'summonerName', 'kills', 'deaths', 'assists', 'goldEarned', 'totalDamageDealtToChampions', 'totalDamageTaken', 'timeCCingOthers', 'damageDealtToTurrets', 'firstBloodKill',
+           'firstBloodAssist', 'firstTowerKill', 'firstTowerAssist', 'turretPlatesTaken', 'soloKills', 'outnumberedKills', 'doubleKills', 'tripleKills', 'quadraKills', 'pentaKills', 'epicMonsterSteals',
+           'skillshotsHit', 'skillshotsDodged', 'abilityUses', 'wardsGuarded', 'visionWardsBoughtInGame', 'laneMinionsFirst10Minutes', 'jungleCsBefore10Minutes', 'team_goldEarned', 
+           'team_totalDamageDealtToChampions', 'team_totalDamageTaken', 'team_kills', 'toxic_score']]
 df9 = df8.groupby(['individualPosition', 'summonerName']).sum()
 
 df9['kda'] = (df9['kills'] + df9['assists']) / (df9['deaths'])
@@ -154,13 +164,15 @@ df11['abilityUses_per_game'] = df11['abilityUses'] / df11['gameId']
 df11['minionsFirst10Minutes_per_game'] = (df11['laneMinionsFirst10Minutes'] + df11['jungleCsBefore10Minutes']) / df11['gameId']
 df11['damageDealtToTurrets_per_game'] = df11['damageDealtToTurrets'] / df11['gameId']
 df11['timeCCingOthers_per_game'] = df11['timeCCingOthers'] / df11['gameId']
+df11['avg_toxic_score'] = df11['toxic_score'] / df11['gameId']
 df11 = df11.reset_index()
 
 #Organize dataframe columns in desired order.
-game_data = df11[['summonerName', 'individualPosition', 'gameId', 'win', 'loss', 'wp', 'kills_per_game', 'deaths_per_game', 'assists_per_game', 'kda', 'kp', 'cspm', 'gpm', 'gold_perc', 'dpm', 'dmg_perc', 'dpg', 'dtpm', 'dmg_tkn_perc', 'hpm', 'ahspm', 'vspm', 'wppm',
-              'wkpm', 'visionWardsBoughtInGame_per_game', 'wardsGuarded_per_game', 'first_blood_involved_per_game', 'first_tower_involved_per_game', 'solo_kills_per_game', 'outnumbered_kills_per_game', 
-              'doubleKills_per_game', 'tripleKills_per_game', 'quadraKills_per_game', 'pentaKills_per_game', 'turret_plates_taken_per_game', 'damageDealtToTurrets_per_game', 
-              'minionsFirst10Minutes_per_game', 'timeCCingOthers_per_game', 'skillshotsHit_per_game', 'skillshotsDodged_per_game', 'abilityUses_per_game', 'epicMonsterSteals_per_game']]
+game_data = df11[['summonerName', 'individualPosition', 'gameId', 'win', 'loss', 'wp', 'kills_per_game', 'deaths_per_game', 'assists_per_game', 'kda', 'kp', 'cspm', 'gpm', 'gold_perc', 'dpm', 'dmg_perc',
+                  'dpg', 'dtpm', 'dmg_tkn_perc', 'hpm', 'ahspm', 'vspm', 'wppm', 'wkpm', 'visionWardsBoughtInGame_per_game', 'wardsGuarded_per_game', 'first_blood_involved_per_game', 
+                  'first_tower_involved_per_game', 'solo_kills_per_game', 'outnumbered_kills_per_game', 'doubleKills_per_game', 'tripleKills_per_game', 'quadraKills_per_game', 'pentaKills_per_game',
+                  'turret_plates_taken_per_game', 'damageDealtToTurrets_per_game', 'minionsFirst10Minutes_per_game', 'timeCCingOthers_per_game', 'skillshotsHit_per_game', 'skillshotsDodged_per_game',
+                  'abilityUses_per_game', 'epicMonsterSteals_per_game', 'avg_toxic_score']]
 
 #Create dataframe of winrate stats by player.
 #Calculate wins and games played by player.
@@ -390,7 +402,8 @@ game_data = game_data.rename(columns = {
     'skillshotsHit_per_game': 'SkillshotsHitPerGame',
     'skillshotsDodged_per_game': 'SkillshotsDodgedPerGame',
     'abilityUses_per_game': 'AbilityUsesPerGame',
-    'epicMonsterSteals_per_game': 'EpicMonsterStealsPerGame'
+    'epicMonsterSteals_per_game': 'EpicMonsterStealsPerGame',
+    'avg_toxic_score': 'AvgToxicScore'
 })
 game_data['WinPercent'] = game_data['WinPercent']*100
 game_data['KillParticipation'] = game_data['KillParticipation']*100
@@ -465,11 +478,12 @@ raw_data = df4.rename(columns = {
     'totalDamageTaken': 'DamageTaken',
     'visionScore': 'VisionScore',
     'total_player_games': 'TotalPlayerGames',
-    'total_champ_games': 'TotalChampGames'
+    'total_champ_games': 'TotalChampGames',
+    'toxic_score': 'ToxicScore'
 })
 raw_data = raw_data.sort_values(by = 'GameID')
 raw_data = raw_data[['GameID', 'Name', 'Position', 'ChampionName', 'Side', 'GameDuration', 'Result', 'Kills', 'Deaths', 'Assists', 'KillParticipation', 'CS',
-                     'Gold', 'GoldPercent', 'DamageDealt', 'DamageDealtPercent', 'DamageTaken', 'DamageTakenPercent', 'VisionScore']]
+                     'Gold', 'GoldPercent', 'DamageDealt', 'DamageDealtPercent', 'DamageTaken', 'DamageTakenPercent', 'VisionScore', 'ToxicScore']]
 
 game_data.to_json('../game_data.json', orient = 'records')
 winrate.to_json('../winrate.json', orient = 'values', double_precision = 2)
@@ -477,5 +491,3 @@ pick_ban.to_json('../pick_ban.json', orient = 'records')
 head_to_head.to_json('../head_to_head.json', orient = 'values')
 same_team.to_json('../same_team.json', orient = 'values')
 raw_data.to_json('../raw_data.json', orient = 'values', double_precision = 2)
-
-con.close()

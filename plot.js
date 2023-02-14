@@ -310,6 +310,7 @@ function buildMatchHistory() {
             data[i][13] = data[i][13].toFixed(2)
             data[i][15] = data[i][15].toFixed(2)
             data[i][17] = data[i][17].toFixed(2)
+            data[i][19] = data[i][19].toFixed(2)
         };
 
         //Use DataTables to create interactive table.
@@ -318,7 +319,7 @@ function buildMatchHistory() {
                 data: data,
                 columnDefs: [
                     {
-                        targets: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18],
+                        targets: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19],
                         className: 'dt-center'
                     },
                 ],
@@ -330,9 +331,9 @@ function buildMatchHistory() {
                     { title: 'Side' },
                     { title: 'Duration' },
                     { title: 'Result' },
-                    { title: 'Kills' },
-                    { title: 'Deaths' },
-                    { title: 'Assists' },
+                    { title: 'K' },
+                    { title: 'D' },
+                    { title: 'A' },
                     { title: 'KP' },
                     { title: 'CS' },
                     { title: 'Gold' },
@@ -342,6 +343,7 @@ function buildMatchHistory() {
                     { title: 'DmgTkn' },
                     { title: 'DmgTkn%' },
                     { title: 'VS' },
+                    { title: 'TS' },
                 ],
             });
         });
