@@ -41,7 +41,7 @@ def getGameData(game_id):
                     'visionScore', 'wardsPlaced', 'wardsKilled', 'visionWardsBoughtInGame', 'firstBloodKill', 'firstBloodAssist', 'firstTowerKill', 'firstTowerAssist',
                     'doubleKills', 'tripleKills', 'quadraKills', 'pentaKills']
     challenges_list = ['laneMinionsFirst10Minutes', 'jungleCsBefore10Minutes', 'outnumberedKills', 'soloKills',
-                   'turretPlatesTaken', 'epicMonsterSteals', 'skillshotsHit', 'skillshotsDodged', 'wardsGuarded', 'abilityUses']
+                   'turretPlatesTaken', 'dragonTakedowns', 'riftHeraldTakedowns', 'epicMonsterSteals', 'skillshotsHit', 'skillshotsDodged', 'wardsGuarded', 'abilityUses']
     
     #Iterate through lists of desired stats and append response data to an empty list.
     info_data = []
@@ -114,7 +114,7 @@ def getGameData(game_id):
 headers1 = ['gameId', 'gameVersion', 'gameDuration', 'summonerName', 'teamId', 'individualPosition', 'championName', 'win', 'kills', 'deaths', 'assists', 'totalMinionsKilled', 'neutralMinionsKilled', 
            'goldEarned', 'totalDamageDealtToChampions', 'totalDamageTaken', 'totalHeal', 'totalHealsOnTeammates', 'totalDamageShieldedOnTeammates', 'timeCCingOthers', 'damageDealtToTurrets', 'visionScore', 'wardsPlaced', 
            'wardsKilled', 'visionWardsBoughtInGame', 'firstBloodKill', 'firstBloodAssist', 'firstTowerKill', 'firstTowerAssist', 'doubleKills', 'tripleKills', 'quadraKills', 'pentaKills', 
-           'laneMinionsFirst10Minutes', 'jungleCsBefore10Minutes', 'outnumberedKills', 'soloKills', 'turretPlatesTaken', 'epicMonsterSteals', 'skillshotsHit', 'skillshotsDodged', 'wardsGuarded',
+           'laneMinionsFirst10Minutes', 'jungleCsBefore10Minutes', 'outnumberedKills', 'soloKills', 'turretPlatesTaken', 'dragonTakedowns', 'riftHeraldTakedowns', 'epicMonsterSteals', 'skillshotsHit', 'skillshotsDodged', 'wardsGuarded',
            'abilityUses']
 
 #Iterate over all game_ids into getGameData function. Output is list of lists in total_data_list.
@@ -220,7 +220,7 @@ cur = con.cursor()
 #                                         totalMinionsKilled int, neutralMinionsKilled int, goldEarned int, totalDamageDealtToChampions int, totalDamageTaken int, totalHeal int, totalHealsOnTeammates int,
 #                                         totalDamageShieldedOnTeammates int, timeCCingOthers int, damageDealtToTurrets int, visionScore int, wardsPlaced int, wardsKilled int, visionWardsBoughtInGame int, firstBloodKill text, 
 #                                         firstBloodAssist text, firstTowerKill text, firstTowerAssist text, doubleKills int, tripleKills int, quadraKills int, pentaKills int, laneMinionsFirst10Minutes int, 
-#                                         jungleCsBefore10Minutes float, outnumberedKills int, soloKills int, turretPlatesTaken int, epicMonsterSteals int, skillshotsHit int, skillshotsDodged int, 
+#                                         jungleCsBefore10Minutes float, outnumberedKills int, soloKills int, turretPlatesTaken int, dragonTakedowns int, riftHeraldTakedowns int, epicMonsterSteals int, skillshotsHit int, skillshotsDodged int, 
 #                                         wardsGuarded int, abilityUses int )''')
 #cur.execute('''CREATE TABLE picks ( gameId int, championName text, teamId int, win text)''')
 #cur.execute('''CREATE TABLE redBans ( firstBan text, secondBan text, thirdBan text, fourthBan text, fifthBan text )''')

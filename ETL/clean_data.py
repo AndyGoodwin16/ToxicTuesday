@@ -129,7 +129,7 @@ df_per_min = df_per_min[['cspm', 'gpm', 'dpm', 'dtpm', 'hpm', 'ahspm', 'vspm', '
 df8 = df4[['individualPosition', 'summonerName', 'kills', 'deaths', 'assists', 'goldEarned', 'totalDamageDealtToChampions', 'totalDamageTaken', 'timeCCingOthers', 'damageDealtToTurrets', 'firstBloodKill',
            'firstBloodAssist', 'firstTowerKill', 'firstTowerAssist', 'turretPlatesTaken', 'soloKills', 'outnumberedKills', 'doubleKills', 'tripleKills', 'quadraKills', 'pentaKills', 'epicMonsterSteals',
            'skillshotsHit', 'skillshotsDodged', 'abilityUses', 'wardsGuarded', 'visionWardsBoughtInGame', 'laneMinionsFirst10Minutes', 'jungleCsBefore10Minutes', 'team_goldEarned', 
-           'team_totalDamageDealtToChampions', 'team_totalDamageTaken', 'team_kills', 'toxic_score']]
+           'dragonTakedowns', 'riftHeraldTakedowns', 'team_totalDamageDealtToChampions', 'team_totalDamageTaken', 'team_kills', 'toxic_score', ]]
 df9 = df8.groupby(['individualPosition', 'summonerName']).sum()
 
 df9['kda'] = (df9['kills'] + df9['assists']) / (df9['deaths'])
@@ -154,6 +154,8 @@ df11['first_tower_involved_per_game'] = (df11['firstTowerKill'] + df11['firstTow
 df11['visionWardsBoughtInGame_per_game'] = df11['visionWardsBoughtInGame'] / df11['gameId']
 df11['wardsGuarded_per_game'] = df11['wardsGuarded'] / df11['gameId']
 df11['epicMonsterSteals_per_game'] = df11['epicMonsterSteals'] / df11['gameId']
+df11['dragonTakedowns_per_game'] = df11['dragonTakedowns'] / df11['gameId']
+df11['riftHeraldTakedowns_per_game'] = df11['riftHeraldTakedowns'] / df11['gameId']
 df11['doubleKills_per_game'] = df11['doubleKills'] / df11['gameId']
 df11['tripleKills_per_game'] = df11['tripleKills'] / df11['gameId']
 df11['quadraKills_per_game'] = df11['quadraKills'] / df11['gameId']
@@ -172,7 +174,7 @@ game_data = df11[['summonerName', 'individualPosition', 'gameId', 'win', 'loss',
                   'dpg', 'dtpm', 'dmg_tkn_perc', 'hpm', 'ahspm', 'vspm', 'wppm', 'wkpm', 'visionWardsBoughtInGame_per_game', 'wardsGuarded_per_game', 'first_blood_involved_per_game', 
                   'first_tower_involved_per_game', 'solo_kills_per_game', 'outnumbered_kills_per_game', 'doubleKills_per_game', 'tripleKills_per_game', 'quadraKills_per_game', 'pentaKills_per_game',
                   'turret_plates_taken_per_game', 'damageDealtToTurrets_per_game', 'minionsFirst10Minutes_per_game', 'timeCCingOthers_per_game', 'skillshotsHit_per_game', 'skillshotsDodged_per_game',
-                  'abilityUses_per_game', 'epicMonsterSteals_per_game', 'avg_toxic_score']]
+                  'abilityUses_per_game', 'epicMonsterSteals_per_game', 'dragonTakedowns_per_game', 'riftHeraldTakedowns_per_game', 'avg_toxic_score']]
 
 #Create dataframe of winrate stats by player.
 #Calculate wins and games played by player.
@@ -403,6 +405,8 @@ game_data = game_data.rename(columns = {
     'skillshotsDodged_per_game': 'SkillshotsDodgedPerGame',
     'abilityUses_per_game': 'AbilityUsesPerGame',
     'epicMonsterSteals_per_game': 'EpicMonsterStealsPerGame',
+    'dragonTakedowns_per_game': 'DragonsPerGame',
+    'riftHeraldTakedowns_per_game': 'HeraldsPerGame',
     'avg_toxic_score': 'AvgToxicScore'
 })
 game_data['WinPercent'] = game_data['WinPercent']*100
