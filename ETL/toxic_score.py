@@ -149,13 +149,64 @@ ornn_jung_z_scores = [-1.4186856589353605, -0.006640600095843733, -1.45108946023
 ornn_avg_z_score = sum(ornn_jung_z_scores) / len(ornn_jung_z_scores)
 avg_z_score_list[519] = ornn_avg_z_score
 
-scaled_avg_z_score_list = []
-for i in range(len(avg_z_score_list)):
-    shifted_avg_z_score = avg_z_score_list[i] + 1.25
-    scaled_avg_z_score = (shifted_avg_z_score)/(3.25)*10
-    scaled_avg_z_score_list.append(scaled_avg_z_score)
-
-df_gamedata['toxic_score'] = scaled_avg_z_score_list
+df_gamedata['toxic_score'] = avg_z_score_list
 df_gamedata = df_gamedata[['gameId', 'summonerName', 'champion', 'position', 'toxic_score']]
 
+df_top = df_gamedata.loc[df_gamedata['position'] == 'TOP']
+df_jung = df_gamedata.loc[df_gamedata['position'] == 'JUNGLE']
+df_mid = df_gamedata.loc[df_gamedata['position'] == 'MIDDLE']
+df_bot = df_gamedata.loc[df_gamedata['position'] == 'BOTTOM']
+df_supp = df_gamedata.loc[df_gamedata['position'] == 'UTILITY']
+
+top_avg_z_score_list = df_top['toxic_score'].tolist()
+scaled_top_avg_z_score_list = []
+for i in range(len(top_avg_z_score_list)):
+    minimum = df_top['toxic_score'].min() - 0.25
+    maximum = df_top['toxic_score'].max() + 0.25
+    shifted_avg_z_score = top_avg_z_score_list[i] - minimum
+    scaled_avg_z_score = (shifted_avg_z_score)/(maximum - minimum)*10
+    scaled_top_avg_z_score_list.append(scaled_avg_z_score)
+df_top['toxic_score'] = scaled_top_avg_z_score_list
+
+jung_avg_z_score_list = df_jung['toxic_score'].tolist()
+scaled_jung_avg_z_score_list = []
+for i in range(len(jung_avg_z_score_list)):
+    minimum = df_jung['toxic_score'].min() - 0.25
+    maximum = df_jung['toxic_score'].max() + 0.25
+    shifted_avg_z_score = jung_avg_z_score_list[i] - minimum
+    scaled_avg_z_score = (shifted_avg_z_score)/(maximum - minimum)*10
+    scaled_jung_avg_z_score_list.append(scaled_avg_z_score)
+df_jung['toxic_score'] = scaled_jung_avg_z_score_list
+
+mid_avg_z_score_list = df_mid['toxic_score'].tolist()
+scaled_mid_avg_z_score_list = []
+for i in range(len(mid_avg_z_score_list)):
+    minimum = df_mid['toxic_score'].min() - 0.25
+    maximum = df_mid['toxic_score'].max() + 0.25
+    shifted_avg_z_score = mid_avg_z_score_list[i] - minimum
+    scaled_avg_z_score = (shifted_avg_z_score)/(maximum - minimum)*10
+    scaled_mid_avg_z_score_list.append(scaled_avg_z_score)
+df_mid['toxic_score'] = scaled_mid_avg_z_score_list
+
+bot_avg_z_score_list = df_bot['toxic_score'].tolist()
+scaled_bot_avg_z_score_list = []
+for i in range(len(bot_avg_z_score_list)):
+    minimum = df_bot['toxic_score'].min() - 0.25
+    maximum = df_bot['toxic_score'].max() + 0.25
+    shifted_avg_z_score = bot_avg_z_score_list[i] - minimum
+    scaled_avg_z_score = (shifted_avg_z_score)/(maximum - minimum)*10
+    scaled_bot_avg_z_score_list.append(scaled_avg_z_score)
+df_bot['toxic_score'] = scaled_bot_avg_z_score_list
+
+supp_avg_z_score_list = df_supp['toxic_score'].tolist()
+scaled_supp_avg_z_score_list = []
+for i in range(len(supp_avg_z_score_list)):
+    minimum = df_supp['toxic_score'].min() - 0.25
+    maximum = df_supp['toxic_score'].max() + 0.25
+    shifted_avg_z_score = supp_avg_z_score_list[i] - minimum
+    scaled_avg_z_score = (shifted_avg_z_score)/(maximum - minimum)*10
+    scaled_supp_avg_z_score_list.append(scaled_avg_z_score)
+df_supp['toxic_score'] = scaled_supp_avg_z_score_list
+
+df_gamedata = pd.concat([df_top, df_jung, df_mid, df_bot, df_supp])
 df_gamedata.to_csv('toxic_score.csv')

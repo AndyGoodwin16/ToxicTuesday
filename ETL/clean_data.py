@@ -20,8 +20,69 @@ df_toxic_score = pd.read_csv('toxic_score.csv')
 
 #Create a dataframe of in-game stats by player and position.
 
-#Add toxic score to gamedata (df).
-df['toxic_score'] = df_toxic_score['toxic_score'].tolist()
+#Change summonerName to IRL name.
+df['summonerName'] = df['summonerName'].replace({
+    'The Life of Andy': 'Andy',
+    'Fer Sharks': 'Jackson',
+    'Diet Smite': 'Kori',
+    'Santa kums 2nite': 'Kori',
+    'B1ng Chillin': 'Kori',
+    'Brony Hole': 'Luke',
+    'cloaca buss down': 'Rob',
+    'glocktobussy': 'Tonnie',
+    'BeaIs': 'Beals',
+    'Large Ski11 Gap': 'Tyler',
+    'Net n Yahoo': 'Tyler',
+    'Sp4nK1n M0nK3y5': 'Tyler',
+    'SmokeDopeNotCope': 'Tyler',
+    'HTXpanda': 'Jess',
+    'NickBlumer': 'Nick B.',
+    'G4ytr0x': 'Moo',
+    'M4SHALLAH': 'Moo',
+    'the scouts chode': 'Moo',
+    'For Gun': 'Moo',
+    'ezcyabye': 'Moo',
+    'Anonymous Lemur': 'Nick D.',
+    'Despp': 'Desp',
+    'ducks on pond': 'Anthony',
+    'Kinga': 'Kinga',
+    'YoungOcelot': 'Milroy',
+    'ScottSucks':'Furb',
+    'SprightReamicks': 'Franklin'
+})
+
+#Manually edit incorrect role assignment.
+df.loc[df['summonerName'] == 'Jess', 'individualPosition'] = 'UTILITY'
+df.loc[df['championName'] == 'Twitch', 'individualPosition'] = 'BOTTOM'
+df.loc[df['championName'] == 'Nautilus', 'individualPosition'] = 'UTILITY'
+
+#Add toxic score by role.
+df_top = df.loc[df['individualPosition'] == 'TOP']
+df_top_TS = df_toxic_score.loc[df_toxic_score['position'] == 'TOP']
+top_TS_list = df_top_TS['toxic_score'].tolist()
+df_top['toxic_score'] = top_TS_list
+
+df_jung = df.loc[df['individualPosition'] == 'JUNGLE']
+df_jung_TS = df_toxic_score.loc[df_toxic_score['position'] == 'JUNGLE']
+jung_TS_list = df_jung_TS['toxic_score'].tolist()
+df_jung['toxic_score'] = jung_TS_list
+
+df_mid = df.loc[df['individualPosition'] == 'MIDDLE']
+df_mid_TS = df_toxic_score.loc[df_toxic_score['position'] == 'MIDDLE']
+mid_TS_list = df_mid_TS['toxic_score'].tolist()
+df_mid['toxic_score'] = mid_TS_list
+
+df_bot = df.loc[df['individualPosition'] == 'BOTTOM']
+df_bot_TS = df_toxic_score.loc[df_toxic_score['position'] == 'BOTTOM']
+bot_TS_list = df_bot_TS['toxic_score'].tolist()
+df_bot['toxic_score'] = bot_TS_list
+
+df_supp = df.loc[df['individualPosition'] == 'UTILITY']
+df_supp_TS = df_toxic_score.loc[df_toxic_score['position'] == 'UTILITY']
+supp_TS_list = df_supp_TS['toxic_score'].tolist()
+df_supp['toxic_score'] = supp_TS_list
+
+df = pd.concat([df_top, df_jung, df_mid, df_bot, df_supp])
 
 #Add MVP (highest toxic score on winning team) and ACE (highest toxic score on losing team)
 win_df = df.loc[df['win'] == '1']
@@ -72,45 +133,11 @@ loss_df['ACE'] = loss_list3
 
 df = pd.concat([win_df, loss_df]).sort_values(by = 'gameId')
 
-#Change summonerName to IRL name.
-df['summonerName'] = df['summonerName'].replace({
-    'The Life of Andy': 'Andy',
-    'Fer Sharks': 'Jackson',
-    'Diet Smite': 'Kori',
-    'Santa kums 2nite': 'Kori',
-    'B1ng Chillin': 'Kori',
-    'Brony Hole': 'Luke',
-    'cloaca buss down': 'Rob',
-    'glocktobussy': 'Tonnie',
-    'BeaIs': 'Beals',
-    'Large Ski11 Gap': 'Tyler',
-    'Net n Yahoo': 'Tyler',
-    'Sp4nK1n M0nK3y5': 'Tyler',
-    'SmokeDopeNotCope': 'Tyler',
-    'HTXpanda': 'Jess',
-    'NickBlumer': 'Nick B.',
-    'G4ytr0x': 'Moo',
-    'M4SHALLAH': 'Moo',
-    'the scouts chode': 'Moo',
-    'For Gun': 'Moo',
-    'ezcyabye': 'Moo',
-    'Anonymous Lemur': 'Nick D.',
-    'Despp': 'Desp',
-    'ducks on pond': 'Anthony',
-    'Kinga': 'Kinga',
-    'YoungOcelot': 'Milroy',
-    'ScottSucks':'Furb',
-    'SprightReamicks': 'Franklin'
-})
-
 #Edit/add columns.
 df['gameDuration'] = df['gameDuration']/60
 df['cs'] = df['totalMinionsKilled'] + df['neutralMinionsKilled']
 df['teamId'] = df['teamId'].replace(100, 'BLUE')
 df['teamId'] = df['teamId'].replace(200, 'RED')
-df.loc[df['summonerName'] == 'Jess', 'individualPosition'] = 'UTILITY'
-df.loc[df['championName'] == 'Twitch', 'individualPosition'] = 'BOTTOM'
-df.loc[df['championName'] == 'Nautilus', 'individualPosition'] = 'UTILITY'
 change_col_list = ['win', 'firstBloodKill', 'firstBloodAssist', 'firstTowerKill', 'firstTowerAssist']
 for i in change_col_list:
     df[i] = df[i].replace('1', 1)
