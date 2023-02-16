@@ -345,6 +345,7 @@ function buildMatchHistory() {
                     { title: 'VS' },
                     { title: 'TS' },
                 ],
+                order: [[0, 'desc']],
             });
         });
 
