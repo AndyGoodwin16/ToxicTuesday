@@ -46,6 +46,7 @@ df_gamedata['summonerName'] = df_gamedata['summonerName'].replace({
 df_gamedata.loc[df_gamedata['summonerName'] == 'Jess', 'individualPosition'] = 'UTILITY'
 df_gamedata.loc[df_gamedata['championName'] == 'Twitch', 'individualPosition'] = 'BOTTOM'
 df_gamedata.loc[df_gamedata['championName'] == 'Nautilus', 'individualPosition'] = 'UTILITY'
+df_gamedata.loc[df_gamedata['championName'] == 'Braum', 'individualPosition'] = 'UTILITY'
 
 df_gamedata['gameDuration'] = df_gamedata['gameDuration']/60
 df_gamedata['kills_per_min'] = df_gamedata['kills']/df_gamedata['gameDuration']

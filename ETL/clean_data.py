@@ -55,6 +55,7 @@ df['summonerName'] = df['summonerName'].replace({
 df.loc[df['summonerName'] == 'Jess', 'individualPosition'] = 'UTILITY'
 df.loc[df['championName'] == 'Twitch', 'individualPosition'] = 'BOTTOM'
 df.loc[df['championName'] == 'Nautilus', 'individualPosition'] = 'UTILITY'
+df.loc[df['championName'] == 'Braum', 'individualPosition'] = 'UTILITY'
 
 #Add toxic score by role.
 df_top = df.loc[df['individualPosition'] == 'TOP']
