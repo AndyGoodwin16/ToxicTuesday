@@ -234,9 +234,6 @@ df11['wardsGuarded_per_game'] = df11['wardsGuarded'] / df11['gameId']
 df11['dragonTakedowns_per_game'] = df11['dragonTakedowns'] / df11['gameId']
 df11['riftHeraldTakedowns_per_game'] = df11['riftHeraldTakedowns'] / df11['gameId']
 df11['doubleKills_per_game'] = df11['doubleKills'] / df11['gameId']
-df11['tripleKills_per_game'] = df11['tripleKills'] / df11['gameId']
-df11['quadraKills_per_game'] = df11['quadraKills'] / df11['gameId']
-df11['pentaKills_per_game'] = df11['pentaKills'] / df11['gameId']
 df11['skillshotsHit_per_game'] = df11['skillshotsHit'] / df11['gameId']
 df11['skillshotsDodged_per_game'] = df11['skillshotsDodged'] / df11['gameId']
 df11['abilityUses_per_game'] = df11['abilityUses'] / df11['gameId']
@@ -249,7 +246,7 @@ df11 = df11.reset_index()
 #Organize dataframe columns in desired order.
 game_data = df11[['summonerName', 'individualPosition', 'gameId', 'win', 'loss', 'wp', 'kills_per_game', 'deaths_per_game', 'assists_per_game', 'kda', 'kp', 'cspm', 'gpm', 'gold_perc', 'dpm', 'dmg_perc',
                   'dpg', 'dtpm', 'dmg_tkn_perc', 'hpm', 'ahspm', 'vspm', 'wppm', 'wkpm', 'visionWardsBoughtInGame_per_game', 'wardsGuarded_per_game', 'first_blood_involved_per_game', 
-                  'first_tower_involved_per_game', 'solo_kills_per_game', 'outnumbered_kills_per_game', 'doubleKills_per_game', 'tripleKills_per_game', 'quadraKills_per_game', 'pentaKills_per_game',
+                  'first_tower_involved_per_game', 'solo_kills_per_game', 'outnumbered_kills_per_game', 'doubleKills_per_game', 'tripleKills', 'quadraKills', 'pentaKills',
                   'turret_plates_taken_per_game', 'damageDealtToTurrets_per_game', 'minionsFirst10Minutes_per_game', 'timeCCingOthers_per_game', 'skillshotsHit_per_game', 'skillshotsDodged_per_game',
                   'abilityUses_per_game', 'epicMonsterSteals', 'dragonTakedowns_per_game', 'riftHeraldTakedowns_per_game', 'MVP', 'ACE', 'avg_toxic_score']]
 
@@ -471,9 +468,9 @@ game_data = game_data.rename(columns = {
     'solo_kills_per_game': 'SoloKillsPerGame',
     'outnumbered_kills_per_game': 'OutnumberedKillsPerGame',
     'doubleKills_per_game': 'DoubleKillsPerGame',
-    'tripleKills_per_game': 'TripleKillsPerGame',
-    'quadraKills_per_game': 'QuadraKillsPerGame',
-    'pentaKills_per_game': 'PentaKillsPerGame',
+    'tripleKills': 'TripleKills',
+    'quadraKills': 'QuadraKills',
+    'pentaKills': 'PentaKills',
     'turret_plates_taken_per_game': 'TurretPlatesTakenPerGame',
     'damageDealtToTurrets_per_game': 'DamageToTurretsPerGame',
     'minionsFirst10Minutes_per_game': 'CSat10MinPerGame',
