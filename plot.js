@@ -135,11 +135,12 @@ init2();
 //Create function to display win percent table.
 function buildWinrateTable() {
     //Import JSON file.
-    d3.json('winrate.json').then((data) => {
+    d3.json('total_winrate.json').then((data) => {
 
         //Fix win percent stat to two decimals.
         for (i = 0; i < data.length; i++) {
             data[i][4] = data[i][4].toFixed(2)
+            data[i][8] = data[i][8].toFixed(2)
         };
 
         //Use DataTables to create interactive table.
@@ -148,16 +149,20 @@ function buildWinrateTable() {
                 data: data,
                 columnDefs: [
                     {
-                        targets: [0,1,2,3,4],
+                        targets: [0,1,2,3,4,5,6,7,8],
                         className: 'dt-center'
                     },
                 ],
                 columns: [
                     { title: 'Name' },
-                    { title: 'NumberOfGames' },
+                    { title: 'Games' },
                     { title: 'Wins' },
                     { title: 'Losses' },
                     { title: 'WinPercent' },
+                    { title: 'Series' },
+                    { title: 'SeriesWins' },
+                    { title: 'SeriesLosses' },
+                    { title: 'SeriesWinPercent' },
                 ],
                 paging: false,
                 searching: false,

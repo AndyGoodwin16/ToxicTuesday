@@ -259,7 +259,91 @@ df4c = pd.merge(df4a, df4b, on = ['summonerName'])
 #Edit/add columns.
 winrate = df4c[['gameId', 'win']]
 winrate['loss'] = winrate['gameId'] - winrate['win']
-winrate['wp'] = winrate['win'] / winrate['gameId']
+winrate['wp'] = 100*winrate['win'] / winrate['gameId']
+
+#Create function to determine series winrate stats by player.
+rows = []
+def SeriesWinRate(Player):
+    
+    player_df = df4.loc[df4['summonerName'] == Player].sort_values(by = 'gameId').reset_index(drop = True)
+    player_df = player_df[['gameId', 'win']]
+    gameid_list = player_df['gameId'].tolist()
+    gameid_list.append(1000000000000000000000)
+    result_list = player_df['win'].tolist()
+    
+    count_list = []
+    count = 0
+    for i in range(len(gameid_list)-1):
+        if (gameid_list[i+1] - gameid_list[i]) < 500000:
+            count += result_list[i]
+        else:
+            count += result_list[i]
+            count_list.append(count)
+            count = 0
+    
+    if Player == 'Anthony':
+        del count_list[20]
+        count_list.insert(19, 2)
+        count_list.insert(20, 1)
+    elif Player == 'Beals':
+        del count_list[15]
+        count_list.insert(15, 2)
+        count_list.insert(16, 1)
+    elif Player == 'Jess':
+        del count_list[10]
+        count_list.insert(10, 0)
+        count_list.insert(11, 2)
+    elif Player == 'Kinga':
+        del count_list[10]
+        count_list.insert(10, 2)
+        count_list.insert(11, 1)
+    elif Player == 'Kori':
+        del count_list[17]
+        count_list.insert(17, 0)
+        count_list.insert(18, 2)
+    elif Player == 'Milroy':
+        del count_list[22]
+        count_list.insert(22, 2)
+        count_list.insert(23, 1)
+    elif Player == 'Nick B.':
+        del count_list[19]
+        count_list.insert(19, 2)
+        count_list.insert(20, 2)
+    elif Player == 'Nick D.':
+        del count_list[10]
+        count_list.insert(10, 0)
+        count_list.insert(11, 2)
+    elif Player == 'Tonnie':
+        del count_list[19]
+        count_list.insert(19, 0)
+        count_list.insert(20, 1)
+    
+    for i in range(len(count_list)):
+        if count_list[i] > 1:
+            count_list[i] = 1
+        else:
+            count_list[i] = 0
+            
+    rows.append(Player)
+    rows.append(len(count_list))
+    rows.append(sum(count_list))
+    rows.append((len(count_list) - sum(count_list)))
+    rows.append((100*sum(count_list)/len(count_list)))
+    
+    return
+
+#Run every player name through function.
+name_list = df4['summonerName'].sort_values().unique().tolist()
+for i in range(len(name_list)):
+    SeriesWinRate(name_list[i])
+
+#Break down resulting list into list of list for each player and create dataframe.
+rows = [rows[i: i+5] for i in range(0, len(rows), 5)]
+series_winrate = pd.DataFrame(rows, columns = ['summonerName', 'Series', 'SeriesWins', 'SeriesLosses', 'SeriesWinPercent'])
+
+#Merge winrate and series winrate stats by player.
+total_winrate = pd.merge(winrate, series_winrate, on = 'summonerName', how = 'outer')
+total_winrate = total_winrate.reset_index(drop = True)
 
 #Create dataframe of pick ban stats.
 #Edit/add columns.
@@ -493,9 +577,6 @@ game_data['DamageTakenPercent'] = game_data['DamageTakenPercent']*100
 game_data['FirstBloodPercent'] = game_data['FirstBloodPercent']*100
 game_data['FirstTowerPercent'] = game_data['FirstTowerPercent']*100
 
-winrate['wp'] = winrate['wp']*100
-winrate = winrate.reset_index(drop = False)
-
 pick_ban = pick_ban[pick_ban['pickban_perc'] > 0.1499]
 pick_ban = pick_ban.rename(columns = {
     'pickban_perc': 'PickBanPercent',
@@ -566,7 +647,7 @@ raw_data = raw_data[['GameID', 'Name', 'Position', 'ChampionName', 'Side', 'Game
                      'Gold', 'GoldPercent', 'DamageDealt', 'DamageDealtPercent', 'DamageTaken', 'DamageTakenPercent', 'VisionScore', 'ToxicScore']]
 
 game_data.to_json('../game_data.json', orient = 'records')
-winrate.to_json('../winrate.json', orient = 'values', double_precision = 2)
+total_winrate.to_json('../total_winrate.json', orient = 'values', double_precision = 2)
 pick_ban.to_json('../pick_ban.json', orient = 'records')
 head_to_head.to_json('../head_to_head.json', orient = 'values')
 same_team.to_json('../same_team.json', orient = 'values')
