@@ -579,7 +579,7 @@ game_data['DamageTakenPercent'] = game_data['DamageTakenPercent']*100
 game_data['FirstBloodPercent'] = game_data['FirstBloodPercent']*100
 game_data['FirstTowerPercent'] = game_data['FirstTowerPercent']*100
 
-pick_ban = pick_ban[pick_ban['pickban_perc'] > 0.1499]
+pick_ban = pick_ban[pick_ban['pickban_perc'] > 0.09999999]
 pick_ban = pick_ban.rename(columns = {
     'pickban_perc': 'PickBanPercent',
     'pick': 'Picks',
