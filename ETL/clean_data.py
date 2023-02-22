@@ -87,13 +87,13 @@ df = pd.concat([df_top, df_jung, df_mid, df_bot, df_supp])
 
 #Add MVP (highest toxic score on winning team) and ACE (highest toxic score on losing team)
 win_df = df.loc[df['win'] == '1']
+win_df = win_df.sort_values(by = 'gameId')
 win_list = win_df['toxic_score'].tolist()
-win_list2 = []
-win_list3 = []
 
+win_list2 = []
 for i in range(0, int(len(win_list)/5)):
     win_list2.append(win_list[i*5:(i+1)*5])
-    
+
 for i in range(len(win_list2)):
     highest_score = max(win_list2[i])
     for j in range(0, 5):
@@ -102,6 +102,7 @@ for i in range(len(win_list2)):
         else:
             win_list2[i][j] = 0
 
+win_list3 = []
 for i in range(len(win_list2)):
     for j in range(0, 5):
         win_list3.append(win_list2[i][j])
@@ -110,10 +111,10 @@ win_df['MVP'] = win_list3
 win_df['ACE'] = 0
 
 loss_df = df.loc[df['win'] == '0']
+loss_df = loss_df.sort_values(by = 'gameId')
 loss_list = loss_df['toxic_score'].tolist()
-loss_list2 = []
-loss_list3 = []
 
+loss_list2 = []
 for i in range(0, int(len(loss_list)/5)):
     loss_list2.append(loss_list[i*5:(i+1)*5])
     
@@ -125,6 +126,7 @@ for i in range(len(loss_list2)):
         else:
             loss_list2[i][j] = 0
 
+loss_list3 = []
 for i in range(len(loss_list2)):
     for j in range(0, 5):
         loss_list3.append(loss_list2[i][j])
