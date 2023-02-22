@@ -7,7 +7,7 @@ from pathlib import Path
 #Two functions (getGameData and getPickBanData) each take in a game_id and output data in a list of lists format. Create dataframes from output, then manipulate data into appropriate form.
 
 #UPDATE api_key every 24 hours.
-api_key = 'INSERT API KEY HERE'
+api_key = 'RGAPI-1236ad17-e101-4fd3-ac5d-6214dbe556d6'
 
 #List of game_ids, COMMENT OUT below after inital data dump to sqlite file.
 #game_id_list = ['4438988683', '4439457855', '4439408609', '4448659747', '4448570106', 
@@ -26,7 +26,7 @@ api_key = 'INSERT API KEY HERE'
 #                '4582341443', '4582388450']
 
 #UNCOMMENT OUT below to load new data into sqlite file.
-game_id_list = ['INSERT GAMEIDS HERE']
+game_id_list = ['4583907474', '4583973455', '4584022658']
 
 #Empty list to collect data.
 total_data_list = []
