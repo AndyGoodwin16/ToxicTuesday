@@ -85,7 +85,7 @@ df_supp['toxic_score'] = supp_TS_list
 
 df = pd.concat([df_top, df_jung, df_mid, df_bot, df_supp])
 
-#Add MVP (highest toxic score on winning team) and ACE (highest toxic score on losing team)
+#Add MVP (highest toxic score on winning team), ACE (highest toxic score on losing team), Passenger (lowest toxic score on winning team), MonkeySkull (lowest toxic score on losing team).
 win_df = df.loc[df['win'] == '1']
 win_df = win_df.sort_values(by = 'gameId')
 win_list = win_df['toxic_score'].tolist()
@@ -93,6 +93,10 @@ win_list = win_df['toxic_score'].tolist()
 win_list2 = []
 for i in range(0, int(len(win_list)/5)):
     win_list2.append(win_list[i*5:(i+1)*5])
+
+win_list3 = []
+for i in range(0, int(len(win_list)/5)):
+    win_list3.append(win_list[i*5:(i+1)*5])
 
 for i in range(len(win_list2)):
     highest_score = max(win_list2[i])
@@ -102,13 +106,28 @@ for i in range(len(win_list2)):
         else:
             win_list2[i][j] = 0
 
-win_list3 = []
+for i in range(len(win_list3)):
+    lowest_score = min(win_list3[i])
+    for j in range(0, 5):
+        if lowest_score == win_list3[i][j]:
+            win_list3[i][j] = 1
+        else:
+            win_list3[i][j] = 0
+
+win_list4 = []
 for i in range(len(win_list2)):
     for j in range(0, 5):
-        win_list3.append(win_list2[i][j])
+        win_list4.append(win_list2[i][j])
 
-win_df['MVP'] = win_list3
+win_list5 = []
+for i in range(len(win_list3)):
+    for j in range(0, 5):
+        win_list5.append(win_list3[i][j])
+
+win_df['MVP'] = win_list4
 win_df['ACE'] = 0
+win_df['Passenger'] = win_list5
+win_df['MonkeySkull'] = 0
 
 loss_df = df.loc[df['win'] == '0']
 loss_df = loss_df.sort_values(by = 'gameId')
@@ -118,6 +137,10 @@ loss_list2 = []
 for i in range(0, int(len(loss_list)/5)):
     loss_list2.append(loss_list[i*5:(i+1)*5])
     
+loss_list3 = []
+for i in range(0, int(len(loss_list)/5)):
+    loss_list3.append(loss_list[i*5:(i+1)*5])
+    
 for i in range(len(loss_list2)):
     highest_score = max(loss_list2[i])
     for j in range(0, 5):
@@ -125,14 +148,29 @@ for i in range(len(loss_list2)):
             loss_list2[i][j] = 1
         else:
             loss_list2[i][j] = 0
+            
+for i in range(len(loss_list3)):
+    lowest_score = min(loss_list3[i])
+    for j in range(0, 5):
+        if lowest_score == loss_list3[i][j]:
+            loss_list3[i][j] = 1
+        else:
+            loss_list3[i][j] = 0
 
-loss_list3 = []
+loss_list4 = []
 for i in range(len(loss_list2)):
     for j in range(0, 5):
-        loss_list3.append(loss_list2[i][j])
+        loss_list4.append(loss_list2[i][j])
+        
+loss_list5 = []
+for i in range(len(loss_list3)):
+    for j in range(0, 5):
+        loss_list5.append(loss_list3[i][j])
 
 loss_df['MVP'] = 0
-loss_df['ACE'] = loss_list3
+loss_df['ACE'] = loss_list4
+loss_df['Passenger'] = 0
+loss_df['MonkeySkull'] = loss_list5
 
 df = pd.concat([win_df, loss_df]).sort_values(by = 'gameId')
 
@@ -209,7 +247,7 @@ df_per_min = df_per_min[['cspm', 'gpm', 'dpm', 'dtpm', 'hpm', 'ahspm', 'vspm', '
 df8 = df4[['individualPosition', 'summonerName', 'kills', 'deaths', 'assists', 'goldEarned', 'totalDamageDealtToChampions', 'totalDamageTaken', 'timeCCingOthers', 'damageDealtToTurrets', 'firstBloodKill',
            'firstBloodAssist', 'firstTowerKill', 'firstTowerAssist', 'turretPlatesTaken', 'soloKills', 'outnumberedKills', 'doubleKills', 'tripleKills', 'quadraKills', 'pentaKills', 'epicMonsterSteals',
            'skillshotsHit', 'skillshotsDodged', 'abilityUses', 'wardsGuarded', 'visionWardsBoughtInGame', 'laneMinionsFirst10Minutes', 'jungleCsBefore10Minutes', 'team_goldEarned', 
-           'dragonTakedowns', 'riftHeraldTakedowns', 'team_totalDamageDealtToChampions', 'team_totalDamageTaken', 'team_kills', 'toxic_score', 'MVP', 'ACE']]
+           'dragonTakedowns', 'riftHeraldTakedowns', 'team_totalDamageDealtToChampions', 'team_totalDamageTaken', 'team_kills', 'toxic_score', 'MVP', 'ACE', 'Passenger', 'MonkeySkull']]
 df9 = df8.groupby(['individualPosition', 'summonerName']).sum()
 
 df9['kda'] = (df9['kills'] + df9['assists']) / (df9['deaths'])
@@ -244,13 +282,14 @@ df11['damageDealtToTurrets_per_game'] = df11['damageDealtToTurrets'] / df11['gam
 df11['timeCCingOthers_per_game'] = df11['timeCCingOthers'] / df11['gameId']
 df11['avg_toxic_score'] = df11['toxic_score'] / df11['gameId']
 df11 = df11.reset_index()
+df11.columns
 
 #Organize dataframe columns in desired order.
 game_data = df11[['summonerName', 'individualPosition', 'gameId', 'win', 'loss', 'wp', 'kills_per_game', 'deaths_per_game', 'assists_per_game', 'kda', 'kp', 'cspm', 'gpm', 'gold_perc', 'dpm', 'dmg_perc',
                   'dpg', 'dtpm', 'dmg_tkn_perc', 'hpm', 'ahspm', 'vspm', 'wppm', 'wkpm', 'visionWardsBoughtInGame_per_game', 'wardsGuarded_per_game', 'first_blood_involved_per_game', 
                   'first_tower_involved_per_game', 'solo_kills_per_game', 'outnumbered_kills_per_game', 'doubleKills_per_game', 'tripleKills', 'quadraKills', 'pentaKills',
                   'turret_plates_taken_per_game', 'damageDealtToTurrets_per_game', 'minionsFirst10Minutes_per_game', 'timeCCingOthers_per_game', 'skillshotsHit_per_game', 'skillshotsDodged_per_game',
-                  'abilityUses_per_game', 'epicMonsterSteals', 'dragonTakedowns_per_game', 'riftHeraldTakedowns_per_game', 'MVP', 'ACE', 'avg_toxic_score']]
+                  'abilityUses_per_game', 'epicMonsterSteals', 'dragonTakedowns_per_game', 'riftHeraldTakedowns_per_game', 'MVP', 'ACE', 'Passenger', 'MonkeySkull', 'avg_toxic_score']]
 
 #Create dataframe of winrate stats by player.
 #Calculate wins and games played by player.
@@ -569,6 +608,8 @@ game_data = game_data.rename(columns = {
     'riftHeraldTakedowns_per_game': 'HeraldsPerGame',
     'MVP': 'MVP',
     'ACE': 'ACE',
+    'Passenger': 'Passenger',
+    'MonkeySkull': 'MonkeySkull',
     'avg_toxic_score': 'AvgToxicScore'
 })
 game_data['WinPercent'] = game_data['WinPercent']*100
