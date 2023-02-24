@@ -170,6 +170,31 @@
                             <div class='card shadow mb-4'>
 
                                 <div class='card-header py-3 d-flex flex-row align-items-center justify-content-between'>
+                                    <h6 class='m-0 font-weight-bold text-primary'>What is Toxic Score?</h6>
+                                </div>
+
+                                <div class='card-body'>
+                                    <p>
+                                        Toxic score is a statistical analysis of performance on a particular champion (character) in a particular position as compared to the average player.
+                                        Utilizing Riots API, a dataset of over 10,000 games consisting of players around our skill level was generated. Each player's statistics for an 
+                                        individual game are compared to all the games in the large dataset where the same champion is played in the same position. This is done by calculating
+                                        the Z-Score ((Mean of stat in large dataset - Value of stat in our individual games) / Standard Deviation of stat in large dataset) for each stat and averaging
+                                        them together. The average of these Z-Scores are scaled within each position then further scaled to a 0-10 scale to give Toxic Score. The "In-Game Stats by Player
+                                        and Position" graph shows the average Toxic Score for each game a player has in a particular position along with the number of games a player in a particular
+                                        position had the highest or lowest Toxic Score on the winning or losing team (MVP, ACE, Passenger, MonkeySkull).
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class='row'>
+
+                        <div class='col-xl-12 col-lg-7'>
+                            <div class='card shadow mb-4'>
+
+                                <div class='card-header py-3 d-flex flex-row align-items-center justify-content-between'>
                                     <h6 class='m-0 font-weight-bold text-primary'>What future data and/or visualizations will be included?</h6>
                                 </div>
 
